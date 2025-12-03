@@ -1,0 +1,16 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using OpdHospital.Controllers.Generics;
+using OpdHospital.Interfaces.IGenericRepositories;
+using OpdHospital.Models.Users;
+
+namespace OpdHospital.Controllers.Users
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UserController : GenericController<User>
+    {
+        public UserController(IGenericRepository<User> repo) : base(repo)
+        {
+        }
+    }
+}
