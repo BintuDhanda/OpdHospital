@@ -2,6 +2,7 @@
 using OpdHospital.Models.Appointments;
 using OpdHospital.Models.AppointmentsStatus;
 using OpdHospital.Models.Cities;
+using OpdHospital.Models.CommissionsRules;
 using OpdHospital.Models.Countries;
 using OpdHospital.Models.Departments;
 using OpdHospital.Models.DoctorHospitals;
@@ -9,6 +10,8 @@ using OpdHospital.Models.Doctors;
 using OpdHospital.Models.DoctorsAvailabilities;
 using OpdHospital.Models.DoctorsSpecializations;
 using OpdHospital.Models.Hospitals;
+using OpdHospital.Models.Invoicies;
+using OpdHospital.Models.OpdVisits;
 using OpdHospital.Models.Patients;
 using OpdHospital.Models.Payments;
 using OpdHospital.Models.PaymentsStatus;
@@ -16,6 +19,7 @@ using OpdHospital.Models.PaymnetsMethods;
 using OpdHospital.Models.Pincodes;
 using OpdHospital.Models.Refunds;
 using OpdHospital.Models.Roles;
+using OpdHospital.Models.SalesPartners;
 using OpdHospital.Models.Specializations;
 using OpdHospital.Models.States;
 using OpdHospital.Models.TimesSlots;
@@ -55,5 +59,9 @@ namespace OpdHospital.Database
         public DbSet<Specialization> Specializations { get; set; }
         public DbSet<TimeSlot> TimeSlots { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<OpdVisit> OpdVisits { get; set;}
+        public DbSet<SalePartner> SalesPartner { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<CommissionRule> CommissionRules { get; set; }
     }
 }

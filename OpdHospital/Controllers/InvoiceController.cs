@@ -1,0 +1,17 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using OpdHospital.Controllers.Generics;
+using OpdHospital.Interfaces.IGenericRepositories;
+using OpdHospital.Models.Invoicies;
+
+namespace OpdHospital.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class InvoiceController : GenericController<Invoice>
+    {
+        public InvoiceController(IGenericRepository<Invoice> genericRepository) : base(genericRepository)
+        {
+        }
+    }
+}
