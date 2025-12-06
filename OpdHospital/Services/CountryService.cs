@@ -1,12 +1,13 @@
-﻿using OpdHospital.Interfaces.IGenericRepositories;
-using OpdHospital.Models.Countries;
+﻿using OpdHospital.Interfaces;
+using OpdHospital.Interfaces.IGenericRepositories;
+using OpdHospital.Models;
 
 namespace OpdHospital.Services
 {
-    public class CountryService
+    public class CountryService : GenericService<Country>
     {
-        private IGenericRepository<Country> _genericRepository;
-        public CountryService(IGenericRepository<Country> genericRepository)
+        private readonly IGenericRepository<Country> _genericRepository;
+        public CountryService(IGenericRepository<Country> genericRepository) : base (genericRepository)
         {
             _genericRepository = genericRepository;
         }

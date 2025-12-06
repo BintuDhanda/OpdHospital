@@ -3,8 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using OpdHospital.Database;
 using OpdHospital.Interfaces.IGenericRepositories;
 using OpdHospital.Interfaces.IUsersRepositories;
-using OpdHospital.Repositories.GenericRepositories;
-using OpdHospital.Repositories.UsersRepositories;
+using OpdHospital.Repositories;
 
 namespace OpdHospital
 {

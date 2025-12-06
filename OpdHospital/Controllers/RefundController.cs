@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OpdHospital.Controllers.Generics;
 using OpdHospital.Interfaces.IGenericRepositories;
-using OpdHospital.Models.Refunds;
+using OpdHospital.Models;
 
 namespace OpdHospital.Controllers
 {

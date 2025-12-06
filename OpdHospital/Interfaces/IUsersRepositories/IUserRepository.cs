@@ -1,7 +1,7 @@
 ﻿using Microsoft.OpenApi.Writers;
 using OpdHospital.Dtos.UsersDto;
 using OpdHospital.Interfaces.IGenericRepositories;
-using OpdHospital.Models.Users;
+using OpdHospital.Models;
 
 namespace OpdHospital.Interfaces.IUsersRepositories
 {
