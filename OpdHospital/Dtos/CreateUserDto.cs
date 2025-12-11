@@ -1,4 +1,4 @@
-﻿namespace OpdHospital.Dtos.UsersDto
+﻿namespace OpdHospital.Dtos
 {
     public class CreateUserDto
     {

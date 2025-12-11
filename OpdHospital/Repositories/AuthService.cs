@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.IdentityModel.Tokens;
 using OpdHospital.Database;
-using OpdHospital.Dtos.LoginsDto;
-using OpdHospital.Interfaces.IAuthsServices;
-using OpdHospital.Interfaces.IUsersRepositories;
+using OpdHospital.Dtos;
+using OpdHospital.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -23,7 +22,7 @@ namespace OpdHospital.Repositories
             _appDbContext = appDbContext;
         }
 
-        public Task<string> LoginAsync(LoginDto loginDto)
+        public Task<string> LoginAsync(LoginRequestDto loginDto)
         {
             throw new NotImplementedException();
         }

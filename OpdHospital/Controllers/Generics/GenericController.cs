@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OpdHospital.Interfaces.IGenericRepositories;
+using OpdHospital.Interfaces;
 
 namespace OpdHospital.Controllers.Generics
 {

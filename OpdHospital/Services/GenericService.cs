@@ -1,5 +1,4 @@
 ﻿using OpdHospital.Interfaces;
-using OpdHospital.Interfaces.IGenericRepositories;
 
 namespace OpdHospital.Services
 {

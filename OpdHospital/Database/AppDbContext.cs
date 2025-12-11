@@ -6,7 +6,9 @@ namespace OpdHospital.Database
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -14,7 +16,7 @@ namespace OpdHospital.Database
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
-        public DbSet<AppointmentStatus> AppointmentsStatus { get; set;}
+        public DbSet<AppointmentStatus> AppointmentsStatus { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<City> Cities { get; set; }
@@ -34,9 +36,12 @@ namespace OpdHospital.Database
         public DbSet<Specialization> Specializations { get; set; }
         public DbSet<TimeSlot> TimeSlots { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
-        public DbSet<OpdVisit> OpdVisits { get; set;}
+        public DbSet<OpdVisit> OpdVisits { get; set; }
         public DbSet<SalePartner> SalesPartner { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<CommissionRule> CommissionRules { get; set; }
+        public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
+        public DbSet<NotificationMessage> NotificationMessages { get; set; }
+        public DbSet<OtpSetting> OtpSettings { get; set; }
     }
 }

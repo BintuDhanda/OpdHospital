@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OpdHospital.Models
 {
@@ -6,6 +7,7 @@ namespace OpdHospital.Models
     {
         [Key]
         public int Id { get; set; }
+        [ForeignKey("Payment")]
         public int PaymentId { get; set; }
         public Payment Payment { get; set; }
         public decimal Amount { get; set; }

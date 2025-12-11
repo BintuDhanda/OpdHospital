@@ -22,7 +22,7 @@ namespace OpdHospital.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("OpdHospital.Models.Appointments.Appointment", b =>
+            modelBuilder.Entity("OpdHospital.Models.Appointment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +109,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("Appointments");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.AppointmentsStatus.AppointmentStatus", b =>
+            modelBuilder.Entity("OpdHospital.Models.AppointmentStatus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -145,7 +145,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("AppointmentsStatus");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Cities.City", b =>
+            modelBuilder.Entity("OpdHospital.Models.City", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -185,7 +185,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.CommissionsRules.CommissionRule", b =>
+            modelBuilder.Entity("OpdHospital.Models.CommissionRule", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -240,7 +240,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("CommissionRules");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Countries.Country", b =>
+            modelBuilder.Entity("OpdHospital.Models.Country", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -276,7 +276,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Departments.Department", b =>
+            modelBuilder.Entity("OpdHospital.Models.Department", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -312,50 +312,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("Departments");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.DoctorHospitals.DoctorHospital", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DoctorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HospitalId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.HasIndex("DoctorId");
-
-                    b.HasIndex("HospitalId");
-
-                    b.ToTable("DoctorHospitals");
-                });
-
-            modelBuilder.Entity("OpdHospital.Models.Doctors.Doctor", b =>
+            modelBuilder.Entity("OpdHospital.Models.Doctor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -424,7 +381,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("Doctors");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.DoctorsAvailabilities.DoctorAvailability", b =>
+            modelBuilder.Entity("OpdHospital.Models.DoctorAvailability", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -466,7 +423,50 @@ namespace OpdHospital.Migrations
                     b.ToTable("DoctorsAvailability");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.DoctorsSpecializations.DoctorSpecialization", b =>
+            modelBuilder.Entity("OpdHospital.Models.DoctorHospital", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HospitalId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("HospitalId");
+
+                    b.ToTable("DoctorHospitals");
+                });
+
+            modelBuilder.Entity("OpdHospital.Models.DoctorSpecialization", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -504,7 +504,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("DoctorsSpecialization");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Hospitals.Hospital", b =>
+            modelBuilder.Entity("OpdHospital.Models.Hospital", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -562,7 +562,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("Hospitals");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Invoicies.Invoice", b =>
+            modelBuilder.Entity("OpdHospital.Models.Invoice", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -605,7 +605,59 @@ namespace OpdHospital.Migrations
                     b.ToTable("Invoices");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.OpdVisits.OpdVisit", b =>
+            modelBuilder.Entity("OpdHospital.Models.NotificationMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Recipient")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("SentAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NotificationMessages");
+                });
+
+            modelBuilder.Entity("OpdHospital.Models.OpdVisit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -675,7 +727,79 @@ namespace OpdHospital.Migrations
                     b.ToTable("OpdVisits");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Patients.Patient", b =>
+            modelBuilder.Entity("OpdHospital.Models.OtpSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CooldownSeconds")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DailyLimitPerIdentifier")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExpiryMinutes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Length")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OtpSettings");
+                });
+
+            modelBuilder.Entity("OpdHospital.Models.PasswordResetToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Identifier")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Otp")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Used")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PasswordResetTokens");
+                });
+
+            modelBuilder.Entity("OpdHospital.Models.Patient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -739,7 +863,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Payments.Payment", b =>
+            modelBuilder.Entity("OpdHospital.Models.Payment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -811,43 +935,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.PaymentsStatus.PaymentStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PaymentsStatus");
-                });
-
-            modelBuilder.Entity("OpdHospital.Models.PaymnetsMethods.PaymentMethod", b =>
+            modelBuilder.Entity("OpdHospital.Models.PaymentMethod", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -883,7 +971,43 @@ namespace OpdHospital.Migrations
                     b.ToTable("PaymentsMethod");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Pincodes.Pincode", b =>
+            modelBuilder.Entity("OpdHospital.Models.PaymentStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentsStatus");
+                });
+
+            modelBuilder.Entity("OpdHospital.Models.Pincode", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -929,7 +1053,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("Pincodes");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Refunds.Refund", b =>
+            modelBuilder.Entity("OpdHospital.Models.Refund", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -982,7 +1106,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("Refunds");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Roles.Role", b =>
+            modelBuilder.Entity("OpdHospital.Models.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1018,7 +1142,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.SalesPartners.SalePartner", b =>
+            modelBuilder.Entity("OpdHospital.Models.SalePartner", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1116,7 +1240,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("SalesPartner");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Specializations.Specialization", b =>
+            modelBuilder.Entity("OpdHospital.Models.Specialization", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1152,7 +1276,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("Specializations");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.States.State", b =>
+            modelBuilder.Entity("OpdHospital.Models.State", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1193,7 +1317,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("States");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.TimesSlots.TimeSlot", b =>
+            modelBuilder.Entity("OpdHospital.Models.TimeSlot", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1227,7 +1351,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("TimeSlots");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Users.User", b =>
+            modelBuilder.Entity("OpdHospital.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1256,6 +1380,9 @@ namespace OpdHospital.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Roles")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -1271,7 +1398,7 @@ namespace OpdHospital.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.UsersRoles.UserRole", b =>
+            modelBuilder.Entity("OpdHospital.Models.UserRole", b =>
                 {
                     b.Property<int>("UserRoleId")
                         .ValueGeneratedOnAdd()
@@ -1297,41 +1424,41 @@ namespace OpdHospital.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Appointments.Appointment", b =>
+            modelBuilder.Entity("OpdHospital.Models.Appointment", b =>
                 {
-                    b.HasOne("OpdHospital.Models.Doctors.Doctor", "Doctor")
+                    b.HasOne("OpdHospital.Models.Doctor", "Doctor")
                         .WithMany()
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.Hospitals.Hospital", "Hospital")
+                    b.HasOne("OpdHospital.Models.Hospital", "Hospital")
                         .WithMany()
                         .HasForeignKey("HospitalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.TimesSlots.TimeSlot", "OriginalTimeSlot")
+                    b.HasOne("OpdHospital.Models.TimeSlot", "OriginalTimeSlot")
                         .WithMany()
                         .HasForeignKey("OriginalTimeSlotId");
 
-                    b.HasOne("OpdHospital.Models.Patients.Patient", "Patient")
+                    b.HasOne("OpdHospital.Models.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.Users.User", "RescheduledByUser")
+                    b.HasOne("OpdHospital.Models.User", "RescheduledByUser")
                         .WithMany()
                         .HasForeignKey("RescheduledByUserId");
 
-                    b.HasOne("OpdHospital.Models.AppointmentsStatus.AppointmentStatus", "Status")
+                    b.HasOne("OpdHospital.Models.AppointmentStatus", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.TimesSlots.TimeSlot", "TimeSlot")
+                    b.HasOne("OpdHospital.Models.TimeSlot", "TimeSlot")
                         .WithMany()
                         .HasForeignKey("TimeSlotId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1352,9 +1479,9 @@ namespace OpdHospital.Migrations
                     b.Navigation("TimeSlot");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Cities.City", b =>
+            modelBuilder.Entity("OpdHospital.Models.City", b =>
                 {
-                    b.HasOne("OpdHospital.Models.States.State", "State")
+                    b.HasOne("OpdHospital.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1363,13 +1490,13 @@ namespace OpdHospital.Migrations
                     b.Navigation("State");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.CommissionsRules.CommissionRule", b =>
+            modelBuilder.Entity("OpdHospital.Models.CommissionRule", b =>
                 {
-                    b.HasOne("OpdHospital.Models.Doctors.Doctor", "Doctor")
+                    b.HasOne("OpdHospital.Models.Doctor", "Doctor")
                         .WithMany()
                         .HasForeignKey("DoctorId");
 
-                    b.HasOne("OpdHospital.Models.SalesPartners.SalePartner", "Partner")
+                    b.HasOne("OpdHospital.Models.SalePartner", "Partner")
                         .WithMany()
                         .HasForeignKey("PartnerId");
 
@@ -1378,21 +1505,51 @@ namespace OpdHospital.Migrations
                     b.Navigation("Partner");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.DoctorHospitals.DoctorHospital", b =>
+            modelBuilder.Entity("OpdHospital.Models.Doctor", b =>
                 {
-                    b.HasOne("OpdHospital.Models.Departments.Department", "Department")
+                    b.HasOne("OpdHospital.Models.Department", "Department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.Doctors.Doctor", "Doctor")
+                    b.HasOne("OpdHospital.Models.Hospital", "Hospital")
+                        .WithMany()
+                        .HasForeignKey("HospitalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("Hospital");
+                });
+
+            modelBuilder.Entity("OpdHospital.Models.DoctorAvailability", b =>
+                {
+                    b.HasOne("OpdHospital.Models.Doctor", "Doctor")
                         .WithMany()
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.Hospitals.Hospital", "Hospital")
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("OpdHospital.Models.DoctorHospital", b =>
+                {
+                    b.HasOne("OpdHospital.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OpdHospital.Models.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OpdHospital.Models.Hospital", "Hospital")
                         .WithMany()
                         .HasForeignKey("HospitalId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1405,45 +1562,15 @@ namespace OpdHospital.Migrations
                     b.Navigation("Hospital");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Doctors.Doctor", b =>
+            modelBuilder.Entity("OpdHospital.Models.DoctorSpecialization", b =>
                 {
-                    b.HasOne("OpdHospital.Models.Departments.Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OpdHospital.Models.Hospitals.Hospital", "Hospital")
-                        .WithMany()
-                        .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-
-                    b.Navigation("Hospital");
-                });
-
-            modelBuilder.Entity("OpdHospital.Models.DoctorsAvailabilities.DoctorAvailability", b =>
-                {
-                    b.HasOne("OpdHospital.Models.Doctors.Doctor", "Doctor")
+                    b.HasOne("OpdHospital.Models.Doctor", "Doctor")
                         .WithMany()
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Doctor");
-                });
-
-            modelBuilder.Entity("OpdHospital.Models.DoctorsSpecializations.DoctorSpecialization", b =>
-                {
-                    b.HasOne("OpdHospital.Models.Doctors.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OpdHospital.Models.Specializations.Specialization", "Specialization")
+                    b.HasOne("OpdHospital.Models.Specialization", "Specialization")
                         .WithMany()
                         .HasForeignKey("SpecializationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1454,15 +1581,15 @@ namespace OpdHospital.Migrations
                     b.Navigation("Specialization");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Hospitals.Hospital", b =>
+            modelBuilder.Entity("OpdHospital.Models.Hospital", b =>
                 {
-                    b.HasOne("OpdHospital.Models.Cities.City", "City")
+                    b.HasOne("OpdHospital.Models.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.States.State", "State")
+                    b.HasOne("OpdHospital.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1473,40 +1600,40 @@ namespace OpdHospital.Migrations
                     b.Navigation("State");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Invoicies.Invoice", b =>
+            modelBuilder.Entity("OpdHospital.Models.Invoice", b =>
                 {
-                    b.HasOne("OpdHospital.Models.Payments.Payment", "Payment")
+                    b.HasOne("OpdHospital.Models.Payment", "Payment")
                         .WithMany()
                         .HasForeignKey("PaymentId");
 
                     b.Navigation("Payment");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.OpdVisits.OpdVisit", b =>
+            modelBuilder.Entity("OpdHospital.Models.OpdVisit", b =>
                 {
-                    b.HasOne("OpdHospital.Models.Doctors.Doctor", "Doctor")
+                    b.HasOne("OpdHospital.Models.Doctor", "Doctor")
                         .WithMany()
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.SalesPartners.SalePartner", "Partner")
+                    b.HasOne("OpdHospital.Models.SalePartner", "Partner")
                         .WithMany()
                         .HasForeignKey("PartnerId");
 
-                    b.HasOne("OpdHospital.Models.Patients.Patient", "Patient")
+                    b.HasOne("OpdHospital.Models.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.PaymnetsMethods.PaymentMethod", "PaymentMethod")
+                    b.HasOne("OpdHospital.Models.PaymentMethod", "PaymentMethod")
                         .WithMany()
                         .HasForeignKey("PaymentMethodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.PaymentsStatus.PaymentStatus", "PaymentStatus")
+                    b.HasOne("OpdHospital.Models.PaymentStatus", "PaymentStatus")
                         .WithMany()
                         .HasForeignKey("PaymentStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1523,25 +1650,36 @@ namespace OpdHospital.Migrations
                     b.Navigation("PaymentStatus");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Payments.Payment", b =>
+            modelBuilder.Entity("OpdHospital.Models.PasswordResetToken", b =>
                 {
-                    b.HasOne("OpdHospital.Models.Appointments.Appointment", "Appointment")
+                    b.HasOne("OpdHospital.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("OpdHospital.Models.Payment", b =>
+                {
+                    b.HasOne("OpdHospital.Models.Appointment", "Appointment")
                         .WithMany()
                         .HasForeignKey("AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.PaymnetsMethods.PaymentMethod", "PaymentMethod")
+                    b.HasOne("OpdHospital.Models.PaymentMethod", "PaymentMethod")
                         .WithMany()
                         .HasForeignKey("PaymentMethodId");
 
-                    b.HasOne("OpdHospital.Models.PaymentsStatus.PaymentStatus", "PaymentStatus")
+                    b.HasOne("OpdHospital.Models.PaymentStatus", "PaymentStatus")
                         .WithMany()
                         .HasForeignKey("PaymentStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.Users.User", "User")
+                    b.HasOne("OpdHospital.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
@@ -1554,15 +1692,15 @@ namespace OpdHospital.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Pincodes.Pincode", b =>
+            modelBuilder.Entity("OpdHospital.Models.Pincode", b =>
                 {
-                    b.HasOne("OpdHospital.Models.Cities.City", "City")
+                    b.HasOne("OpdHospital.Models.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.States.State", "State")
+                    b.HasOne("OpdHospital.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1573,9 +1711,9 @@ namespace OpdHospital.Migrations
                     b.Navigation("State");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.Refunds.Refund", b =>
+            modelBuilder.Entity("OpdHospital.Models.Refund", b =>
                 {
-                    b.HasOne("OpdHospital.Models.Payments.Payment", "Payment")
+                    b.HasOne("OpdHospital.Models.Payment", "Payment")
                         .WithMany()
                         .HasForeignKey("PaymentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1584,27 +1722,27 @@ namespace OpdHospital.Migrations
                     b.Navigation("Payment");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.SalesPartners.SalePartner", b =>
+            modelBuilder.Entity("OpdHospital.Models.SalePartner", b =>
                 {
-                    b.HasOne("OpdHospital.Models.Cities.City", "City")
+                    b.HasOne("OpdHospital.Models.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.Countries.Country", "Country")
+                    b.HasOne("OpdHospital.Models.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.Pincodes.Pincode", "Pincode")
+                    b.HasOne("OpdHospital.Models.Pincode", "Pincode")
                         .WithMany()
                         .HasForeignKey("PincodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.States.State", "State")
+                    b.HasOne("OpdHospital.Models.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1619,9 +1757,9 @@ namespace OpdHospital.Migrations
                     b.Navigation("State");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.States.State", b =>
+            modelBuilder.Entity("OpdHospital.Models.State", b =>
                 {
-                    b.HasOne("OpdHospital.Models.Countries.Country", "Country")
+                    b.HasOne("OpdHospital.Models.Country", "Country")
                         .WithMany()
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1630,15 +1768,15 @@ namespace OpdHospital.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("OpdHospital.Models.UsersRoles.UserRole", b =>
+            modelBuilder.Entity("OpdHospital.Models.UserRole", b =>
                 {
-                    b.HasOne("OpdHospital.Models.Roles.Role", "Role")
+                    b.HasOne("OpdHospital.Models.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpdHospital.Models.Users.User", "User")
+                    b.HasOne("OpdHospital.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

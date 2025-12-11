@@ -1,4 +1,4 @@
-﻿namespace OpdHospital.Interfaces.IGenericRepositories
+﻿namespace OpdHospital.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {

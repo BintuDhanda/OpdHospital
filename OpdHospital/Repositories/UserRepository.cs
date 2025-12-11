@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OpdHospital.Database;
-using OpdHospital.Dtos.UsersDto;
-using OpdHospital.Interfaces.IGenericRepositories;
-using OpdHospital.Interfaces.IUsersRepositories;
+using OpdHospital.Interfaces;
 using OpdHospital.Models;
 
 namespace OpdHospital.Repositories
