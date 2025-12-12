@@ -1,54 +1,67 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OpdHospital.Interfaces;
+using OpdHospital.Utilities;
 
 namespace OpdHospital.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GenericController<T> : ControllerBase where T : class
+    public class GenericController<T> : BaseController where T : class
     {
         private readonly IGenericService<T> _genericService;
 
         public GenericController(IGenericService<T> genericService)
         {
-           _genericService = genericService;
+            _genericService = genericService;
         }
+
         [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            return Ok(await _genericService.GetAllAsync());
-        }
+        public Task<IActionResult> GetAll() =>
+            SafeExecute(async () =>
+            {
+                var list = await _genericService.GetAllAsync();
+                return Ok(Utilities.Response.Success(list));
+            });
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var item = await _genericService.GetByIdAsync(id);
-            if (item == null) return NotFound();
-            return Ok(item);
-        }
+        public Task<IActionResult> GetById(int id) =>
+            SafeExecute(async () =>
+            {
+                var item = await _genericService.GetByIdAsync(id);
+                if (item == null) 
+                    return Ok(Utilities.Response.Success("Record not found"));
+
+                return Ok(Utilities.Response.Success(item));
+            });
 
         [HttpPost]
-        public async Task<IActionResult> Create(T entity)
-        {
-            var newEntity = await _genericService.AddAsync(entity);
-            return Ok(newEntity);
-        }
+        public Task<IActionResult> Create(T entity) =>
+            SafeExecute(async () =>
+            {
+                var created = await _genericService.AddAsync(entity);
+                return Ok(Utilities.Response.Success(created, "Created successfully"));
+            });
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, T entity)
-        {
-            var updated = await _genericService.UpdateAsync(id, entity);
-            if (updated == null) return NotFound("Update Failed");
-            return Ok(updated);
-        }
+        public Task<IActionResult> Update(int id, T entity) =>
+            SafeExecute(async () =>
+            {
+                var updated = await _genericService.UpdateAsync(id, entity);
+                if (updated == null)
+                    return Ok(Utilities.Response.Fail("Update failed"));
+
+                return Ok(Utilities.Response.Success(updated, "Updated successfully"));
+            });
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var deleted = await _genericService.DeleteAsync(id);
-            if (!deleted) return NotFound("Delete Failed");
-            return Ok("Deleted Successfully");
-        }
+        public Task<IActionResult> Delete(int id) =>
+            SafeExecute(async () =>
+            {
+                var deleted = await _genericService.DeleteAsync(id);
+                if (!deleted)
+                    return Ok(Utilities.Response.Fail("Delete failed"));
+
+                return Ok(Utilities.Response.Success(null, "Deleted successfully"));
+            });
     }
 }
