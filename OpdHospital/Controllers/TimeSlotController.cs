@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OpdHospital.Controllers.Generics;
-using OpdHospital.Interfaces.IGenericRepositories;
-using OpdHospital.Models.TimesSlots;
+using OpdHospital.Interfaces;
+using OpdHospital.Models;
 
 namespace OpdHospital.Controllers
 {
@@ -10,7 +9,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class TimeSlotController : GenericController<TimeSlot>
     {
-        public TimeSlotController(IGenericRepository<TimeSlot> genericRepository) : base(genericRepository)
+        public TimeSlotController(IGenericService<TimeSlot> genericService) : base(genericService)
         {
         }
     }

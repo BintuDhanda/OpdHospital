@@ -1,33 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OpdHospital.Models.Appointments;
-using OpdHospital.Models.AppointmentsStatus;
-using OpdHospital.Models.Cities;
-using OpdHospital.Models.Countries;
-using OpdHospital.Models.Departments;
-using OpdHospital.Models.DoctorHospitals;
-using OpdHospital.Models.Doctors;
-using OpdHospital.Models.DoctorsAvailabilities;
-using OpdHospital.Models.DoctorsSpecializations;
-using OpdHospital.Models.Hospitals;
-using OpdHospital.Models.Patients;
-using OpdHospital.Models.Payments;
-using OpdHospital.Models.PaymentsStatus;
-using OpdHospital.Models.PaymnetsMethods;
-using OpdHospital.Models.Pincodes;
-using OpdHospital.Models.Refunds;
-using OpdHospital.Models.Roles;
-using OpdHospital.Models.Specializations;
-using OpdHospital.Models.States;
-using OpdHospital.Models.TimesSlots;
-using OpdHospital.Models.Users;
-using OpdHospital.Models.UsersRoles;
+using OpdHospital.Models;
 using System.Reflection;
 
 namespace OpdHospital.Database
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,7 +16,7 @@ namespace OpdHospital.Database
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
-        public DbSet<AppointmentStatus> AppointmentsStatus { get; set;}
+        public DbSet<AppointmentStatus> AppointmentsStatus { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<City> Cities { get; set; }
@@ -55,5 +36,12 @@ namespace OpdHospital.Database
         public DbSet<Specialization> Specializations { get; set; }
         public DbSet<TimeSlot> TimeSlots { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<OpdVisit> OpdVisits { get; set; }
+        public DbSet<SalePartner> SalesPartner { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<CommissionRule> CommissionRules { get; set; }
+        public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
+        public DbSet<NotificationMessage> NotificationMessages { get; set; }
+        public DbSet<OtpSetting> OtpSettings { get; set; }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OpdHospital.Controllers.Generics;
-using OpdHospital.Interfaces.IGenericRepositories;
-using OpdHospital.Models.PaymnetsMethods;
+using OpdHospital.Interfaces;
+using OpdHospital.Models;
 
 namespace OpdHospital.Controllers
 {
@@ -10,7 +9,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class PaymentMethodController : GenericController<PaymentMethod>
     {
-        public PaymentMethodController(IGenericRepository<PaymentMethod> genericRepository) : base(genericRepository)
+        public PaymentMethodController(IGenericService<PaymentMethod> genericService) : base(genericService)
         {
         }
     }

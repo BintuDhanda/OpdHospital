@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OpdHospital.Controllers.Generics;
-using OpdHospital.Interfaces.IGenericRepositories;
-using OpdHospital.Models.AppointmentsStatus;
+using OpdHospital.Interfaces;
+using OpdHospital.Models;
 
 namespace OpdHospital.Controllers
 {
@@ -10,7 +9,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class AppointmentStatusController : GenericController<AppointmentStatus>
     {
-        public AppointmentStatusController(IGenericRepository<AppointmentStatus> genericRepository) : base(genericRepository)
+        public AppointmentStatusController(IGenericService<AppointmentStatus> genericService) : base(genericService)
         {
         }
     }
