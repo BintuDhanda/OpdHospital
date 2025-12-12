@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OpdHospital.Dtos;
 using OpdHospital.Interfaces;
 using OpdHospital.Models;
+using OpdHospital.Services;
 
 namespace OpdHospital.Controllers
 {
@@ -8,8 +10,19 @@ namespace OpdHospital.Controllers
     [Route("api/[controller]")]
     public class UserController : GenericController<User>
     {
-        public UserController(IGenericService<User> repo) : base(repo)
+        private readonly IUserService _userService;
+        public UserController(IGenericService<User> service, IUserService userService ) : base(service)
         {
+            _userService = userService;
         }
+
+        
+        [HttpPost("login")]
+        public Task<IActionResult> LogIn([FromBody] LoginRequestDto request) =>
+            SafeExecute(async () =>
+            {
+                var result  = await _userService.LogIn(request);
+                return Ok(Utilities.Response.Success(result));
+            });
     }
 }

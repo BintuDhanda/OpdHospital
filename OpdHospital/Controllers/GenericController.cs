@@ -16,11 +16,13 @@ namespace OpdHospital.Controllers
         }
 
         [HttpGet]
-        public Task<IActionResult> GetAll() =>
+        public Task<IActionResult> GetAll(int take=10, int skip=0) =>
             SafeExecute(async () =>
             {
-                var list = await _genericService.GetAllAsync();
-                return Ok(Utilities.Response.Success(list));
+                var query = await _genericService.GetAllAsync();
+                var count = query.Count();
+
+                return Ok(Utilities.Response.Success(query.Skip(skip).Take(take).ToList(), count: count));
             });
 
         [HttpGet("{id}")]

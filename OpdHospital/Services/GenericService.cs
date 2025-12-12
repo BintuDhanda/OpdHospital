@@ -21,7 +21,7 @@ namespace OpdHospital.Services
             return await _genericRepository.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IQueryable<T>> GetAllAsync()
         {
             return await _genericRepository.GetAllAsync();
         }

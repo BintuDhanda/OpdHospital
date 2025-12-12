@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OpdHospital.Database;
 using OpdHospital.Interfaces;
-using OpdHospital.Models;
-using System.Collections.Generic;
 
 namespace OpdHospital.Repositories
 {
@@ -10,8 +8,6 @@ namespace OpdHospital.Repositories
     {
         private readonly AppDbContext _context;
         private readonly DbSet<T> _dbSet;
-        private IGenericRepository<User> repo;
-
         public GenericRepository(AppDbContext context)
         {
             _context = context;
@@ -19,9 +15,9 @@ namespace OpdHospital.Repositories
         }
 
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<IQueryable<T>?> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return  _dbSet.AsQueryable();
         }
 
         public async Task<T?> GetByIdAsync(int id)

@@ -80,6 +80,7 @@ namespace OpdHospital
             builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
