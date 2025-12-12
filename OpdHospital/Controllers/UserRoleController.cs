@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OpdHospital.Controllers.Generics;
 using OpdHospital.Interfaces;
 using OpdHospital.Models;
 
@@ -10,7 +9,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class UserRoleController : GenericController<UserRole>
     {
-        public UserRoleController(IGenericRepository<UserRole> genericRepository) : base(genericRepository)
+        public UserRoleController(IGenericService<UserRole> genericService) : base(genericService)
         {
         }
     }

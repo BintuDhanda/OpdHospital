@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OpdHospital.Controllers.Generics;
 using OpdHospital.Interfaces;
 using OpdHospital.Models;
 
@@ -9,7 +8,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class AppointmentController : GenericController<Appointment>
     {
-        public AppointmentController(IGenericRepository<Appointment> genericRepository) : base(genericRepository)
+        public AppointmentController(IGenericService<Appointment> genericService) : base(genericService)
         {
         }
     }

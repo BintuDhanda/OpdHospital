@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OpdHospital.Controllers.Generics;
 using OpdHospital.Interfaces;
 using OpdHospital.Models;
 
@@ -10,7 +9,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class CountryController : GenericController<Country>
     {
-        public CountryController(IGenericRepository<Country> genericRepository) : base(genericRepository)
+        public CountryController(IGenericService<Country> genericService) : base(genericService)
         {
         }
     }

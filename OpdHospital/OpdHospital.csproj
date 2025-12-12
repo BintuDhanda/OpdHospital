@@ -26,6 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\Generics\" />
+    <Folder Include="Controllers\Users\" />
     <Folder Include="Helpers\" />
   </ItemGroup>
 

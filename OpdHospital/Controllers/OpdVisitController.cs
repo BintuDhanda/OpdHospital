@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OpdHospital.Controllers.Generics;
 using OpdHospital.Interfaces;
 using OpdHospital.Models;
 
@@ -10,7 +9,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class OpdVisitController : GenericController<OpdVisit>
     {
-        public OpdVisitController(IGenericRepository<OpdVisit> genericRepository) : base(genericRepository)
+        public OpdVisitController(IGenericService<OpdVisit> genericService) : base(genericService)
         {
         }
     }

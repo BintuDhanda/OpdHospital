@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OpdHospital.Controllers.Generics;
 using OpdHospital.Interfaces;
 using OpdHospital.Models;
 
@@ -10,7 +9,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class PincodeController : GenericController<Pincode>
     {
-        public PincodeController(IGenericRepository<Pincode> genericRepository) : base(genericRepository)
+        public PincodeController(IGenericService<Pincode> genericService) : base(genericService)
         {
         }
     }
