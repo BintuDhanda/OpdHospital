@@ -45,7 +45,7 @@ namespace OpdHospital.Controllers
             catch (Exception ex)
             {
                 // return 200 with error message (as you required)
-                return Ok(Utilities.Response.Exception(ex));
+                return Ok(Utilities.Response.Fail(ex.Message));
             }
         }
     }

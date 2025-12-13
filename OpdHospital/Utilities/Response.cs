@@ -22,16 +22,6 @@ namespace OpdHospital.Utilities
                 Data = data
             };
         }
-
-        public static object Exception(Exception ex)
-        {
-            return new ApiResponse
-            {
-                Success = false,
-                Message = ex.Message,      // Or ex.ToString() if you want stack trace
-                Data = null
-            };
-        }
     }
 
     public class ApiResponse

@@ -15,9 +15,9 @@ namespace OpdHospital.Repositories
         }
 
 
-        public async Task<IQueryable<T>?> GetAllAsync()
+        public IQueryable<T> GetAll()
         {
-            return  _dbSet.AsQueryable();
+            return  _dbSet;
         }
 
         public async Task<T?> GetByIdAsync(int id)

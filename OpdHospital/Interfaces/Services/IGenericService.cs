@@ -4,7 +4,7 @@ namespace OpdHospital.Interfaces
 {
     public interface IGenericService<T> where T : class
     {
-        Task<IQueryable<T>> GetAllAsync();
+        IQueryable<T> GetAll();
         Task<T?> GetByIdAsync(int id);
         Task<T> AddAsync(T entity);
         Task<T?> UpdateAsync(int id, T entity);

@@ -22,7 +22,13 @@ namespace OpdHospital.Controllers
             SafeExecute(async () =>
             {
                 var result  = await _userService.LogIn(request);
-                return Ok(Utilities.Response.Success(result));
+
+                if (result == null)
+                {
+                    return Ok(Utilities.Response.Fail( "Invalid credentials"));
+                }
+
+                return Ok(Utilities.Response.Success(result, "Login successful"));
             });
     }
 }

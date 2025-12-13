@@ -19,7 +19,7 @@ namespace OpdHospital.Controllers
         public Task<IActionResult> GetAll(int take=10, int skip=0) =>
             SafeExecute(async () =>
             {
-                var query = await _genericService.GetAllAsync();
+                var query =  _genericService.GetAll();
                 var count = query.Count();
 
                 return Ok(Utilities.Response.Success(query.Skip(skip).Take(take).ToList(), count: count));

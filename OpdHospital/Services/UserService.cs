@@ -4,6 +4,7 @@ using OpdHospital.Dtos;
 using OpdHospital.Dtos.Request;
 using OpdHospital.Dtos.Response;
 using OpdHospital.Interfaces;
+using OpdHospital.Mappers;
 using OpdHospital.Models;
 
 namespace OpdHospital.Services
@@ -15,21 +16,29 @@ namespace OpdHospital.Services
             
          }
 
-        public async Task<LogInResponseDto> LogIn(LoginRequestDto loginRequest)
+      public async Task<LogInResponseDto?> LogIn(LoginRequestDto loginRequest)
         {
-            var query = await GetAllAsync();
+            IQueryable<User> query = GetAll();
 
-            var user = query.FirstOrDefaultAsync(u => u.UserName == loginRequest.UserName && u.Password == loginRequest.Password);
-            
-            var response = new LogInResponseDto
+            if (loginRequest.UserName.Contains("@"))
             {
-                UserId = 1,
-                UserName = loginRequest.UserName,
-                Token = "dummy-jwt-token"
-            };
+                query = query.Where(u => u.Email == loginRequest.UserName);
+            }
+            else
+            {
+                query = query.Where(u => u.UserName == loginRequest.UserName);
+            }
 
-            return response;
+            query = query.Where(u => u.Password == loginRequest.Password);
+
+            var user = await query.FirstOrDefaultAsync();
+
+            if (user == null)
+                return null;
+
+            return user.ToLogInResponseDto("DummyToken");
         }
+
 
         public Task Register(RegisterRequestDto registerRequest)
         {

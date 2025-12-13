@@ -8,7 +8,7 @@ namespace OpdHospital.Interfaces
 {
     public interface IUserService
     {
-        public Task<LogInResponseDto> LogIn(LoginRequestDto loginRequest);
+        public Task<LogInResponseDto?> LogIn(LoginRequestDto loginRequest);
         public Task Register(RegisterRequestDto registerRequest);
         public Task ForgotPassword(ForgotPasswordRequestDto forgotPasswordRequest);
     }
