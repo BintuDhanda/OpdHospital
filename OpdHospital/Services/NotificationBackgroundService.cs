@@ -5,7 +5,7 @@ using OpdHospital.Models;
 
 namespace OpdHospital.Services
 {
-    public class NotificationBackgroundService : BackgroundService
+    public class NotificationBackgroundService 
     {
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly ILogger<NotificationBackgroundService> _logger;
@@ -17,7 +17,7 @@ namespace OpdHospital.Services
             _scopeFactory = scopeFactory;
             _logger = logger;
         }
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        protected  async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             _logger.LogInformation("Notification Worker Started");
 

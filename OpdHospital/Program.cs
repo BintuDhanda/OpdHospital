@@ -87,7 +87,7 @@ namespace OpdHospital
             builder.Services.AddScoped<INotificationService, NotificationService>();
 
             builder.Services.AddScoped<IPushSender, FcmPushSenderService>();
-            builder.Services.AddHostedService<NotificationBackgroundService>();
+            //builder.Services.AddHostedService<NotificationBackgroundService>();
 
             builder.Services.AddTransient<IEmailSender, SmtpEmailSenderService>();
             builder.Services.AddTransient<ISmsSender, TwilioSmsSenderService>();  // Correct class name

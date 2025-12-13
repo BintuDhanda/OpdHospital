@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using OpdHospital.Dtos;
 using OpdHospital.Dtos.Request;
 using OpdHospital.Dtos.Response;
@@ -7,19 +8,18 @@ using OpdHospital.Models;
 
 namespace OpdHospital.Services
 {
-    public class UserService : IUserService
+    public class UserService : GenericService<User>, IUserService
     {
-        private readonly IGenericService<User> _genericService;
-         public UserService(IGenericService<User> genericService)
+         public UserService(IGenericRepository<User> genericRepository) : base(genericRepository)
          {
-            _genericService = genericService;
+            
          }
 
         public async Task<LogInResponseDto> LogIn(LoginRequestDto loginRequest)
         {
-            var query = _genericService.GetAllAsync();
+            var query = await GetAllAsync();
 
-            var user = (await query).FirstOrDefault(u => u.UserName == loginRequest.UserName && u.Password == loginRequest.Password);
+            var user = query.FirstOrDefaultAsync(u => u.UserName == loginRequest.UserName && u.Password == loginRequest.Password);
             
             var response = new LogInResponseDto
             {
