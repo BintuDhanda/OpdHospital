@@ -2,6 +2,6 @@
 {
     public class ForgotPasswordRequestDto
     {
-        public string Identifier { get; set; }
+        public string UserName { get; set; }
     }
 }

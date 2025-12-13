@@ -1,34 +1,42 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using OpdHospital.Dtos;
-using OpdHospital.Interfaces;
-using OpdHospital.Models;
-using OpdHospital.Services;
+﻿    using Microsoft.AspNetCore.Mvc;
+    using OpdHospital.Dtos;
+    using OpdHospital.Dtos.Request;
+    using OpdHospital.Interfaces;
+    using OpdHospital.Models;
 
-namespace OpdHospital.Controllers
-{
-    [ApiController]
-    [Route("api/[controller]")]
-    public class UserController : GenericController<User>
+
+    namespace OpdHospital.Controllers
     {
-        private readonly IUserService _userService;
-        public UserController(IGenericService<User> service, IUserService userService ) : base(service)
+        [ApiController]
+        [Route("api/[controller]")]
+        public class UserController : GenericController<User>
         {
-            _userService = userService;
-        }
-
-        
-        [HttpPost("login")]
-        public Task<IActionResult> LogIn([FromBody] LoginRequestDto request) =>
-            SafeExecute(async () =>
+            private readonly IUserService _userService;
+            public UserController(IGenericService<User> service, IUserService userService ) : base(service)
             {
-                var result  = await _userService.LogIn(request);
+                _userService = userService;
+            }
 
-                if (result == null)
+            
+            [HttpPost("login")]
+            public Task<IActionResult> LogIn([FromBody] LoginRequestDto request) =>
+                SafeExecute(async () =>
                 {
-                    return Ok(Utilities.Response.Fail( "Invalid credentials"));
-                }
+                    return Ok(await _userService.LogIn(request));
+                });
 
-                return Ok(Utilities.Response.Success(result, "Login successful"));
-            });
+            [HttpPost("register")]
+            public Task<IActionResult> Register([FromBody] RegisterRequestDto request) =>
+                SafeExecute(async () =>
+                {
+                    return Ok(await _userService.Register(request));
+                });
+
+            [HttpPost("forgot-password")]
+            public Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequestDto request) =>
+                SafeExecute(async () =>
+                {
+                    return Ok(await _userService.ForgotPassword(request));
+                });
+        }
     }
-}

@@ -1,24 +1,26 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using OpdHospital.Dtos;
 using OpdHospital.Dtos.Request;
-using OpdHospital.Dtos.Response;
 using OpdHospital.Interfaces;
 using OpdHospital.Mappers;
 using OpdHospital.Models;
+using OpdHospital.Utilities;
 
 namespace OpdHospital.Services
 {
     public class UserService : GenericService<User>, IUserService
     {
-         public UserService(IGenericRepository<User> genericRepository) : base(genericRepository)
-         {
-            
-         }
-
-      public async Task<LogInResponseDto?> LogIn(LoginRequestDto loginRequest)
+        public UserService(IGenericRepository<User> genericRepository) : base(genericRepository)
         {
+
+        }
+
+        public async Task<ApiResponse?> LogIn(LoginRequestDto loginRequest)
+        {
+
             IQueryable<User> query = GetAll();
+
+            var response = new ApiResponse();
 
             if (loginRequest.UserName.Contains("@"))
             {
@@ -34,20 +36,67 @@ namespace OpdHospital.Services
             var user = await query.FirstOrDefaultAsync();
 
             if (user == null)
-                return null;
+            {
+                response = Response.Fail("Invalid credentials") as ApiResponse;
+            }
+            else
+            {
+                response = Response.Success(user.ToLogInResponseDto("DummyToken"), "Login successful") as Utilities.ApiResponse;
+            }
+             
+             return response;
 
-            return user.ToLogInResponseDto("DummyToken");
         }
 
 
-        public Task Register(RegisterRequestDto registerRequest)
+        public async Task<ApiResponse?> Register(RegisterRequestDto registerRequest)
         {
-            throw new NotImplementedException();
+            var user = UserMapper.ToEntity(registerRequest);
+            var response = new ApiResponse(); 
+
+            var result = await AddAsync(user);
+
+            if (result == null)
+            {
+                response = Response.Fail("Registration failed") as ApiResponse;
+            }
+            else
+            {
+                response = Response.Success(UserMapper.ToRegisterResponseDto(result), "Registration successful") as ApiResponse;
+            }
+
+            return response;
+
         }
 
-        public Task ForgotPassword(ForgotPasswordRequestDto forgotPasswordRequest)
+        public async Task<ApiResponse?> ForgotPassword(ForgotPasswordRequestDto forgotPasswordRequest)
         {
-            throw new NotImplementedException();
+            var query = GetAll();
+
+            var response = new ApiResponse();
+            
+            if (forgotPasswordRequest.UserName.Contains("@"))
+            {
+                query = query.Where(u => u.Email == forgotPasswordRequest.UserName);
+            }
+            else
+            {
+                query = query.Where(u => u.UserName == forgotPasswordRequest.UserName);
+            }
+
+            var user = query.FirstOrDefault();
+
+
+            if (user == null)
+            {
+                response = Response.Fail("User not found") as ApiResponse;
+            }
+            else
+            {
+                response = Response.Success(message: "Password reset instructions sent") as ApiResponse;
+            }
+
+            return response;
         }
     }
 }

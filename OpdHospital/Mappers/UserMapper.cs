@@ -26,5 +26,15 @@ namespace OpdHospital.Mappers
                 Token = token
             };
         }
+
+        public static RegisterResponseDto ToRegisterResponseDto(this User user)
+        {
+            return new RegisterResponseDto
+            {
+                UserId = user.Id,
+                UserName = user.UserName,
+                Email = user.Email
+            };
+        }
     }
 }
