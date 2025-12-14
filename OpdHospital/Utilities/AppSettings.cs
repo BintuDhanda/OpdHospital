@@ -31,6 +31,20 @@ public static class AppSettings
     public static int OtpCooldownSeconds { get; private set; }
     public static int OtpDailyLimitPerIdentifier { get; private set; }
 
+
+     // -------- FILE STORAGE --------
+        public static string FileStorageProvider { get; private set; }
+
+        // Local
+        public static string LocalRootPath { get; private set; }
+
+        // S3
+        public static string S3BucketName { get; private set; }
+        public static string S3Region { get; private set; }
+        public static string S3AccessKey { get; private set; }
+        public static string S3SecretKey { get; private set; }
+
+
     public static void Load(IConfiguration config)
     {
         // Root keys
@@ -63,5 +77,16 @@ public static class AppSettings
         OtpExpiryMinutes = int.TryParse(config["Otp:ExpiryMinutes"], out var expMin) ? expMin : 10;
         OtpCooldownSeconds = int.TryParse(config["Otp:CooldownSeconds"], out var cool) ? cool : 60;
         OtpDailyLimitPerIdentifier = int.TryParse(config["Otp:DailyLimitPerIdentifier"], out var limit) ? limit : 5;
+
+        // -------- FILE STORAGE --------
+        FileStorageProvider = config["FileStorage:Provider"] ?? "Local";
+        LocalRootPath = config["FileStorage:Local:RootPath"];
+
+        // S3
+        S3BucketName = config["FileStorage:S3:BucketName"];
+        S3Region = config["FileStorage:S3:Region"];
+        S3AccessKey = config["FileStorage:S3:AccessKey"];
+        S3SecretKey = config["FileStorage:S3:SecretKey"];
+
     }
 }
