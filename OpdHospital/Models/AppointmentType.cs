@@ -1,4 +1,3 @@
-// generate model class for AppointmentType table
 using System.ComponentModel.DataAnnotations;   
 
 namespace OpdHospital.Models
