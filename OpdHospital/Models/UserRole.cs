@@ -1,18 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace OpdHospital.Models
+﻿namespace OpdHospital.Models
 {
     public class UserRole
     {
         public int UserRoleId { get; set; }
-
-        [ForeignKey("User")]
-        public int UserId { get; set; }
-        public User User { get; set; }
-
-        [ForeignKey("Role")]
+        public long UserId { get; set; }
         public int RoleId { get; set; }
-        public Role Role { get; set; }
         public DateTime? AssignedAt { get; set; }
     }
 }
