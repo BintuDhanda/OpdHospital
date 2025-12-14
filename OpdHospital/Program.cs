@@ -38,7 +38,7 @@ namespace OpdHospital
                 // Prevent the framework from automatically returning 400 for invalid model state.
                 options.SuppressModelStateInvalidFilter = true;
             });
-            
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -73,7 +73,14 @@ namespace OpdHospital
             else
             {
                 builder.Services.AddDbContext<AppDbContext>(options =>
-                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                {
+                    options.UseMySql(
+                        builder.Configuration.GetConnectionString("Default"),
+                        ServerVersion.AutoDetect(
+                            builder.Configuration.GetConnectionString("Default"))
+                    );
+                });
+
             }
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
