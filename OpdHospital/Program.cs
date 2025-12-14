@@ -9,6 +9,7 @@ using OpdHospital.Interfaces;
 using OpdHospital.Models;
 using OpdHospital.Repositories;
 using OpdHospital.Services;
+using OpdHospital.Utilities;
 using System.Text;
 
 namespace OpdHospital
@@ -88,6 +89,10 @@ namespace OpdHospital
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
+
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddScoped<IJwtHelper, JwtHelper>();
+
 
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();

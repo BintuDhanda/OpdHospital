@@ -1,19 +1,29 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using OpdHospital.Interfaces;
 using OpdHospital.Models;
+using OpdHospital.Models.Audit;
 using System.Reflection;
 
 namespace OpdHospital.Database
 {
     public class AppDbContext : DbContext
-    {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    {   
+        private readonly IJwtHelper _jwtHelper;
+        public AppDbContext(DbContextOptions<AppDbContext> options, IJwtHelper jwtHelper)
+            : base(options)
         {
+            _jwtHelper = jwtHelper;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.ApplyConfigurationsFromAssembly(
+                Assembly.GetExecutingAssembly());
         }
+
+        #region DbSets
+
         public DbSet<User> Users { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<AppointmentStatus> AppointmentsStatus { get; set; }
@@ -43,5 +53,127 @@ namespace OpdHospital.Database
         public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
         public DbSet<NotificationMessage> NotificationMessages { get; set; }
         public DbSet<OtpSetting> OtpSettings { get; set; }
+
+        public DbSet<AuditEvent> AuditEvents => Set<AuditEvent>();
+        public DbSet<AuditEventDetail> AuditEventDetails => Set<AuditEventDetail>();
+
+        #endregion
+
+        // ================= SAVE CHANGES OVERRIDE =================
+
+        public override async Task<int> SaveChangesAsync(
+            CancellationToken cancellationToken = default)
+        {
+            var auditEvents = CreateAuditEvents();
+
+            var result = await base.SaveChangesAsync(cancellationToken);
+
+            if (auditEvents.Any())
+            {
+                AuditEvents.AddRange(auditEvents);
+                await base.SaveChangesAsync(cancellationToken);
+            }
+
+            return result;
+        }
+
+        // ================= AUDIT CORE =================
+
+        private List<AuditEvent> CreateAuditEvents()
+        {
+            ChangeTracker.DetectChanges();
+
+            var auditEvents = new List<AuditEvent>();
+
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                // Skip audit tables themselves
+                if (entry.Entity is AuditEvent ||
+                    entry.Entity is AuditEventDetail ||
+                    entry.State == EntityState.Unchanged ||
+                    entry.State == EntityState.Detached)
+                    continue;
+
+                var auditEvent = new AuditEvent
+                {
+                    EntityName = entry.Entity.GetType().Name,
+                    EntityId = GetPrimaryKeyValue(entry),
+                    Action = entry.State.ToString().ToUpper(),
+                    PerformedByUserId = GetCurrentUserId(),
+                    PerformedOn = DateTime.UtcNow,
+                    IpAddress = GetIpAddress()
+                };
+
+                foreach (var prop in entry.Properties)
+                {
+                    if (prop.Metadata.IsPrimaryKey())
+                        continue;
+
+                    // 🔐 Sensitive fields handling
+                    if (IsSensitiveField(prop.Metadata.Name))
+                        continue; // OR mask instead
+
+                    if (entry.State == EntityState.Added)
+                    {
+                        auditEvent.Details.Add(new AuditEventDetail
+                        {
+                            ColumnName = prop.Metadata.Name,
+                            NewValue = prop.CurrentValue?.ToString()
+                        });
+                    }
+                    else if (entry.State == EntityState.Deleted)
+                    {
+                        auditEvent.Details.Add(new AuditEventDetail
+                        {
+                            ColumnName = prop.Metadata.Name,
+                            OldValue = prop.OriginalValue?.ToString()
+                        });
+                    }
+                    else if (entry.State == EntityState.Modified && prop.IsModified)
+                    {
+                        auditEvent.Details.Add(new AuditEventDetail
+                        {
+                            ColumnName = prop.Metadata.Name,
+                            OldValue = prop.OriginalValue?.ToString(),
+                            NewValue = prop.CurrentValue?.ToString()
+                        });
+                    }
+                }
+
+                if (auditEvent.Details.Any())
+                    auditEvents.Add(auditEvent);
+            }
+
+            return auditEvents;
+        }
+
+        // ================= HELPERS =================
+
+        private string GetPrimaryKeyValue(EntityEntry entry)
+        {
+            var key = entry.Metadata.FindPrimaryKey();
+
+            var values = key!.Properties
+                .Select(p => entry.Property(p.Name).CurrentValue?.ToString());
+
+            return string.Join(",", values);
+        }
+
+        private int GetCurrentUserId()
+        {
+           return _jwtHelper.GetUserId();
+        }
+
+        private string? GetIpAddress()
+        {
+            return null;
+        }
+
+        private bool IsSensitiveField(string columnName)
+        {
+            return columnName.Contains("Password", StringComparison.OrdinalIgnoreCase)
+                || columnName.Contains("AccountNumber", StringComparison.OrdinalIgnoreCase)
+                || columnName.Contains("IFSC", StringComparison.OrdinalIgnoreCase);
+        }
     }
 }
