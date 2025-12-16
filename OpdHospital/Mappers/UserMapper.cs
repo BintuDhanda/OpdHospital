@@ -21,7 +21,7 @@ namespace OpdHospital.Mappers
         {
             return new LogInResponseDto
             {
-                UserId = user.Id,
+                UserId = user.UserId,
                 UserName = user.UserName,
                 Token = token
             };
@@ -31,7 +31,7 @@ namespace OpdHospital.Mappers
         {
             return new RegisterResponseDto
             {
-                UserId = user.Id,
+                UserId = user.UserId,
                 UserName = user.UserName,
                 Email = user.Email
             };
