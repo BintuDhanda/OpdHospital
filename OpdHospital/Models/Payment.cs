@@ -1,33 +1,45 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using OpdHospital.Enums;
 
 namespace OpdHospital.Models
 {
     public class Payment : BaseEntity
     {
         [Key]
-        public int Id { get; set; }
+        public long PaymentId { get; set; }
 
-        [ForeignKey("Appointment")]
-        public int AppointmentId { get; set; }
-        public Appointment Appointment { get; set; }
-        [ForeignKey("User")]
-        public int? UserId { get; set; }
-        public User User { get; set; }
-        public decimal Amount { get; set; }
-        public string Currency { get; set; }
+        public long AppointmentId { get; set; }
 
-        [ForeignKey("PaymentMethod")]
-        public int? PaymentMethodId { get; set; }
-        public PaymentMethod PaymentMethod { get; set; }
+        /// <summary>
+        /// Base appointment/service amount (GST excluded)
+        /// </summary>
+        public decimal AppointmentAmount { get; set; }
 
-        [ForeignKey("PaymentStatus")]
-        public int PaymentStatusId { get; set; }
-        public PaymentStatus PaymentStatus { get; set; }
-        public string ProviderTransactionId { get; set; }
-        public DateTime? PaidAt { get; set; }
-        public bool Refundable { get; set; } = false;
-        public decimal? RefundAmount { get; set; }
-        public string Notes { get; set; }
+        /// <summary>
+        /// Platform/service fee charged by app (GST excluded)
+        /// </summary>
+        public decimal PlatformAmount { get; set; }
+
+        /// <summary>
+        /// Total GST amount applied at payment time (snapshot)
+        /// </summary>
+        public decimal TotalTaxAmount { get; set; }
+
+        /// <summary>
+        /// Final amount paid by patient (including GST)
+        /// </summary>
+        public decimal TotalPaidAmount { get; set; }
+
+        public string PaymentGateway { get; set; } = "Razorpay";
+
+        /// <summary>
+        /// Razorpay / gateway payment reference id
+        /// </summary>
+        public string GatewayPaymentId { get; set; } = string.Empty;
+
+        public PaymentStatus Status { get; set; }
+
+        public DateTime PaidOn { get; set; }
     }
 }

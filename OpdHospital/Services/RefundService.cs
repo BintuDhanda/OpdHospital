@@ -3,11 +3,11 @@ using OpdHospital.Models;
 
 namespace OpdHospital.Services
 {
-    public class RefundService:GenericService<Refund>
+    public class RefundService:GenericService<Refunds>
     {
-        private readonly IGenericRepository<Refund> _repository;
+        private readonly IGenericRepository<Refunds> _repository;
 
-        public RefundService(IGenericRepository<Refund> repository):base(repository)
+        public RefundService(IGenericRepository<Refunds> repository):base(repository)
         {
             _repository = repository;
         }

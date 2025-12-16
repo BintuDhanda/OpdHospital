@@ -1,24 +1,34 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using OpdHospital.Enums;
 
 namespace OpdHospital.Models
 {
+    [Table("Appointments")]
     public class Appointment : BaseEntity
     {
         [Key]
-        public Int64 AppointmentId { get; set; }
-        public int AppointmentTypeId { get; set; }
+        public long AppointmentId { get; set; }
+
+        public AppointmentType AppointmentType { get; set; }
+
         public int DoctorId { get; set; }
         public int PatientId { get; set; }
-        public int TimeSlotId { get; set; }
-        public int StatusId { get; set; }
+        public int HospitalId { get; set; }
+
+        // Fixed-time appointment
+        public DateTime? AppointmentDate { get; set; }
+        public TimeSpan? AppointmentTime { get; set; }
+
+        // Package support
+        public int? PackageId { get; set; }
+        public int? PackageVisitNumber { get; set; }
+
         public AppointmentStatus Status { get; set; }
-        public DateTime AppointmentDate { get; set; }
-        public bool IsReschedule { get; set; }
-        public string RescheduleReason { get; set; } = string.Empty;
-        public int? RescheduledByUserId { get; set; }
-        public DateTime? RescheduledAt { get; set; }
-        public int? OriginalAppointmentId { get; set; }
+
+        public decimal AppointmentFee { get; set; }
+        public decimal PlatformFee { get; set; }
+
         public string Remarks { get; set; } = string.Empty;
     }
 }

@@ -12,8 +12,9 @@ namespace OpdHospital.Models
         public int HospitalId { get; set; }
         public DateTime AppointmentDate { get; set; }
         public TimeSpan AppointmentTime { get; set; }
-        public int StatusId { get; set; }
         public AppointmentStatus Status { get; set; }
         public string Remarks { get; set; } = string.Empty;
+        public decimal AppointmentFee { get; set; }
+        public decimal PlateformFee { get; set; } 
     }
 }

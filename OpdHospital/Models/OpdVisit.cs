@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using OpdHospital.Enums;
 
 namespace OpdHospital.Models
 {

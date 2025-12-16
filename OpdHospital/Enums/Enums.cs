@@ -58,4 +58,31 @@ namespace OpdHospital.Enums
         Neurologist = 9,
         Psychiatrist = 10
     }
+
+    public enum AppointmentType
+    {
+        FixedTime = 1,
+        AnyTime = 2,
+        PackageVisit = 3
+    }
+
+     public enum PaymentStatus
+    {
+        Pending = 0,          // Payment initiated but not completed
+        Success = 1,          // Payment completed successfully
+        Failed = 2,           // Payment failed at gateway
+        Cancelled = 3,        // User cancelled payment
+        PartiallyRefunded = 4,// Partial refund processed
+        Refunded = 5          // Full refund processed
+    }
+
+    public enum RefundStatus
+    {
+        Pending = 0,          // Refund initiated but not completed
+        Processing = 1,       // Refund request accepted by gateway
+        Success = 2,          // Refund completed successfully
+        Failed = 3,           // Refund failed
+        Cancelled = 4         // Refund cancelled / reversed
+    }
+
 }

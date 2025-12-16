@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OpdHospital.Models
 {
@@ -8,7 +7,6 @@ namespace OpdHospital.Models
         [Key]
         public int StateId { get; set; }
         public int CountryId { get; set; }
-        public string StateName { get; set; }
-        public string StateCode { get; set; }
+        public string StateName { get; set; } = string.Empty;
     }
 }
