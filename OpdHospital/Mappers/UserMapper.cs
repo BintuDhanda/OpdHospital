@@ -14,6 +14,7 @@ namespace OpdHospital.Mappers
             {
                 UserName = dto.Username,
                 Email = dto.Email,
+                MobileNumber = dto.MobileNumber,
                 Password = new PasswordHasher<User>().HashPassword(null, dto.Password)
             };
         }

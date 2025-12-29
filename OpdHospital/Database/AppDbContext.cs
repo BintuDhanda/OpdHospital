@@ -182,7 +182,7 @@ namespace OpdHospital.Database
             return string.Join(",", values);
         }
 
-        private int GetCurrentUserId()
+        private long GetCurrentUserId()
         {
            return _jwtHelper.GetUserId();
         }

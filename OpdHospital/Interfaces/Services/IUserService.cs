@@ -12,5 +12,6 @@ namespace OpdHospital.Interfaces
         public Task<ApiResponse?> LogIn(LoginRequestDto loginRequest);
         public Task<ApiResponse?> Register(RegisterRequestDto registerRequest);
         public Task<ApiResponse?> ForgotPassword(ForgotPasswordRequestDto forgotPasswordRequest);
+        public Task<ApiResponse?> IsUsernameAvailable(string username);
     }
 }  

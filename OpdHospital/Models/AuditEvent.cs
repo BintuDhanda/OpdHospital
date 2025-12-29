@@ -16,7 +16,7 @@ namespace OpdHospital.Models.Audit
         [Required]
         public string Action { get; set; } = null!; // INSERT / UPDATE / DELETE
 
-        public int PerformedByUserId { get; set; }
+        public long PerformedByUserId { get; set; }
 
         public DateTime PerformedOn { get; set; }
 

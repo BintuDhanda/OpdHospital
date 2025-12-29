@@ -38,5 +38,12 @@
                 {
                     return Ok(await _userService.ForgotPassword(request));
                 });
+
+            [HttpGet("IsUsernameAvailable/{username}")]
+            public Task<IActionResult> IsUsernameAvailable(string username) =>
+                SafeExecute(async () =>
+                {
+                    return Ok(await _userService.IsUsernameAvailable(username));
+                });
         }
     }

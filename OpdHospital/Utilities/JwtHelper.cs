@@ -25,13 +25,13 @@ namespace OpdHospital.Utilities
 
         // ===================== GENERATE JWT =====================
 
-        public string GenerateToken(int userId, string userName, string role)
+        public string GenerateToken(long userId, string userName, string[] role)
         {
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
                 new Claim(ClaimTypes.Name, userName),
-                new Claim(ClaimTypes.Role, role)
+                new Claim(ClaimTypes.Role, string.Join(",", role))
             };
 
             var key = new SymmetricSecurityKey(
@@ -53,7 +53,7 @@ namespace OpdHospital.Utilities
 
         // ===================== GET USER ID =====================
 
-        public int GetUserId()
+        public long GetUserId()
         {
             var httpContext = _httpContextAccessor.HttpContext;
 
