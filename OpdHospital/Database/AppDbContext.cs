@@ -18,8 +18,36 @@ namespace OpdHospital.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(
-                Assembly.GetExecutingAssembly());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.Entity<Appointment>().HasKey(a => a.AppointmentId);
+            modelBuilder.Entity<City>().HasKey(c => c.CityId);
+            modelBuilder.Entity<Country>().HasKey(c => c.CountryId);
+            modelBuilder.Entity<State>().HasKey(s => s.StateId);
+            modelBuilder.Entity<Department>().HasKey(d => d.Id);
+            modelBuilder.Entity<Doctor>().HasKey(d => d.DoctorId);
+            modelBuilder.Entity<Hospital>().HasKey(h => h.HospitalId);
+            modelBuilder.Entity<Patient>().HasKey(p => p.Id);
+            modelBuilder.Entity<User>().HasKey(u => u.UserId);
+            modelBuilder.Entity<Role>().HasKey(r => r.RoleId);
+            modelBuilder.Entity<UserRole>().HasKey(ur => ur.UserRoleId);
+            modelBuilder.Entity<Payment>().HasKey(p => p.PaymentId);
+            modelBuilder.Entity<PaymentMethod>().HasKey(pm => pm.Id);
+            modelBuilder.Entity<DoctorAvailability>().HasKey(ts => ts.Id);
+            modelBuilder.Entity<Pincode>().HasKey(p => p.Id);
+            modelBuilder.Entity<NotificationMessage>().HasKey(nm => nm.Id);
+            modelBuilder.Entity<OtpSetting>().HasKey(os => os.Id);
+            modelBuilder.Entity<AuditEvent>().HasKey(ae => ae.AuditEventId);
+            modelBuilder.Entity<AuditEventDetail>().HasKey(aed => aed.AuditDetailId);
+            modelBuilder.Entity<PasswordResetToken>().HasKey(prt => prt.Id);
+            modelBuilder.Entity<OpdVisit>().HasKey(ov => ov.Id);
+            modelBuilder.Entity<SalePartner>().HasKey(sp => sp.Id);
+            modelBuilder.Entity<Invoice>().HasKey(i => i.Id);
+            modelBuilder.Entity<CommissionRule>().HasKey(cr => cr.Id);
+            modelBuilder.Entity<Refunds>().HasKey(rf => rf.RefundId);
+            modelBuilder.Entity<TimeSlot>().HasKey(ts => ts.Id);
+            modelBuilder.Entity<PasswordResetToken>().HasKey(d => d.Id);
+
+            base.OnModelCreating(modelBuilder);
         }
 
         #region DbSets

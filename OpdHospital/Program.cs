@@ -66,10 +66,9 @@ namespace OpdHospital
             });
 
 
-            if (builder.Environment.IsDevelopment())
+            if (true || builder.Environment.IsDevelopment())
             {
-                builder.Services.AddDbContext<AppDbContext>(options =>
-                    options.UseInMemoryDatabase("DevInMemoryDb"));
+                builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("DevInMemoryDb"));
             }
             else
             {
@@ -91,10 +90,7 @@ namespace OpdHospital
             builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.AddHttpContextAccessor();
-            builder.Services.AddScoped<IJwtHelper, JwtHelper>();
-
-
-            builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<IJwtHelper, JwtHelper>();    
             builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             builder.Services.AddScoped<INotificationService, NotificationService>();
 
@@ -110,10 +106,16 @@ namespace OpdHospital
 
             var app = builder.Build();
 
-            if (app.Environment.IsDevelopment())
+            if (true || app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                using (var scope = app.Services.CreateScope())
+                {
+                    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                    DbSeeder.Seed(dbContext);
+                }
             }
 
             app.UseHttpsRedirection();
@@ -133,5 +135,6 @@ namespace OpdHospital
 
             app.Run();
         }
+
     }
 }

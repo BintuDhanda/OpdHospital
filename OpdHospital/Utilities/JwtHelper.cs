@@ -11,6 +11,10 @@ namespace OpdHospital.Utilities
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
+        public JwtHelper()
+        {
+        }
+
         public JwtHelper(
             IConfiguration configuration,
             IHttpContextAccessor httpContextAccessor)

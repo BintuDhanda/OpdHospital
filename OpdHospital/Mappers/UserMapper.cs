@@ -1,4 +1,5 @@
 // Generate UserMapper class for DTo 
+using Microsoft.AspNetCore.Identity;
 using OpdHospital.Dtos.Request;
 using OpdHospital.Dtos.Response;
 using OpdHospital.Models;  
@@ -13,7 +14,7 @@ namespace OpdHospital.Mappers
             {
                 UserName = dto.Username,
                 Email = dto.Email,
-                Password = dto.Password
+                Password = new PasswordHasher<User>().HashPassword(null, dto.Password)
             };
         }
 

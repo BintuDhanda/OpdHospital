@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using OpdHospital.Dtos;
 using OpdHospital.Dtos.Request;
 using OpdHospital.Interfaces;
@@ -18,11 +19,12 @@ namespace OpdHospital.Services
         public async Task<ApiResponse?> LogIn(LoginRequestDto loginRequest)
         {
             var query = GetAll();
+            var passwordHasher = new PasswordHasher<User>();
 
             if (loginRequest.UserName.Contains("@")) query = query.Where(u => u.Email == loginRequest.UserName);
             else query = query.Where(u => u.UserName == loginRequest.UserName);
-    
-            query = query.Where(u => u.Password == loginRequest.Password);
+           
+            query = query.Where(u => u.Password == passwordHasher.HashPassword(null, loginRequest.Password));
 
             var user = await query.FirstOrDefaultAsync();
             if (user == null) return Response.Fail("Invalid credentials") as ApiResponse;

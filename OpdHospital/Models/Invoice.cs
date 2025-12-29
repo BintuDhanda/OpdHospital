@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OpdHospital.Models
 {
     public class Invoice : BaseEntity
     {
+        [Key]
         public int Id { get; set; }
-        [ForeignKey("Payment")]
         public int? PaymentId { get; set; }
         public Payment Payment { get; set; }
         public string InvoiceNumber { get; set; }
