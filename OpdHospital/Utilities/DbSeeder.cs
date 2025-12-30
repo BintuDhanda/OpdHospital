@@ -65,5 +65,55 @@ public class DbSeeder
             context.UserRoles.AddRange(userRoles);
             context.SaveChanges();
 
+            var countries = new List<Country>
+            {
+                new Country
+                {
+                    CountryId = 1,
+                    Name = "India",
+                    CreatedAt = DateTime.UtcNow
+                },
+            };
+
+            context.Countries.AddRange(countries);
+            context.SaveChanges();
+
+            var states = new List<State>
+            {
+                new State
+                {
+                    StateId = 1,
+                    StateName = "Haryana",
+                    CountryId = 1,
+                    CreatedAt = DateTime.UtcNow
+                },
+            };
+
+            context.States.AddRange(states);
+            context.SaveChanges();
+
+            var notifications = new List<Notification>
+            {
+                new Notification
+                {
+                    NotificationId = 1,
+                    UserId = 1,
+                    NotificationTitle = "Welcome",
+                    NotificationMessage = "Welcome to the OpdHospital system!",
+                    IsRead = false,
+                },
+                new Notification
+                {
+                    NotificationId = 2,
+                    UserId = 1,
+                    NotificationTitle = "System Update",
+                    NotificationMessage = "The system will undergo maintenance tonight.",
+                    IsRead = false,
+                },
+            };
+
+            context.Notifications.AddRange(notifications);
+            context.SaveChanges();
+
     }
 }

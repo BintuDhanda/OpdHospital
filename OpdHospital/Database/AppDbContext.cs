@@ -19,6 +19,7 @@ namespace OpdHospital.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.Entity<Notification>().HasKey(n => n.NotificationId);
             modelBuilder.Entity<Appointment>().HasKey(a => a.AppointmentId);
             modelBuilder.Entity<City>().HasKey(c => c.CityId);
             modelBuilder.Entity<Country>().HasKey(c => c.CountryId);
@@ -53,6 +54,7 @@ namespace OpdHospital.Database
         #region DbSets
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<State> States { get; set; }

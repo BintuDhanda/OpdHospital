@@ -31,9 +31,9 @@ namespace OpdHospital.Services
             return await _genericRepository.GetByIdAsync(id);
         }
 
-        public async Task<T?> UpdateAsync(int id, T entity)
+        public async Task<T?> UpdateAsync(T entity)
         {
-            return await _genericRepository.UpdateAsync(id, entity);
+            return await _genericRepository.UpdateAsync(entity);
         }
     }
 }

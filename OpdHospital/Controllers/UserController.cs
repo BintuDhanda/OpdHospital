@@ -45,5 +45,12 @@
                 {
                     return Ok(await _userService.IsUsernameAvailable(username));
                 });
+
+            [HttpPost("ResetPassword")]
+            public Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequestDto request) =>
+                SafeExecute(async () =>
+                {
+                    return Ok(await _userService.ResetPassword(request));
+                });
         }
     }

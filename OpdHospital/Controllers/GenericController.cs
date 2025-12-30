@@ -45,10 +45,10 @@ namespace OpdHospital.Controllers
             });
 
         [HttpPut("{id}")]
-        public Task<IActionResult> Update(int id, T entity) =>
+        public Task<IActionResult> Update(T entity) =>
             SafeExecute(async () =>
             {
-                var updated = await _genericService.UpdateAsync(id, entity);
+                var updated = await _genericService.UpdateAsync(entity);
                 if (updated == null)
                     return Ok(Utilities.Response.Fail("Update failed"));
 

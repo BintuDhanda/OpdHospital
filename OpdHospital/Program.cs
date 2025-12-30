@@ -85,6 +85,8 @@ namespace OpdHospital
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+            builder.Services.AddScoped<ISearchService, SearchService>();
+            builder.Services.AddScoped<INotificationService, NotificationService>();
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
@@ -92,8 +94,7 @@ namespace OpdHospital
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<IJwtHelper, JwtHelper>();    
             builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-            builder.Services.AddScoped<INotificationService, NotificationService>();
-
+            
             builder.Services.AddScoped<IPushSender, FcmPushSenderService>();
             //builder.Services.AddHostedService<NotificationBackgroundService>();
 
@@ -122,12 +123,6 @@ namespace OpdHospital
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.MapPost("/api/notify", async (NotificationRequestDto req, INotificationService svc) =>
-            {
-                var id = await svc.QueueNotificationAsync(req);
-                return Results.Ok($"Notification queued with ID: {id}");
-            });
 
             app.UseStaticFiles();
 

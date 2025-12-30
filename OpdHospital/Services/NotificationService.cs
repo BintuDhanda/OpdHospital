@@ -1,36 +1,34 @@
-﻿using OpdHospital.Database;
-using OpdHospital.Dtos;
+using System;
+using Microsoft.EntityFrameworkCore;
 using OpdHospital.Interfaces;
 using OpdHospital.Models;
+using OpdHospital.Utilities;
 
-namespace OpdHospital.Services
+namespace OpdHospital.Services;
+
+public interface INotificationService
 {
-    public class NotificationService : INotificationService
+    Task<ApiResponse?> GetAllNotificationsForUserAsync(long userId);
+}
+
+public class NotificationService : INotificationService
+{
+    private readonly IGenericService<Notification> _notificationService;
+    public NotificationService(IGenericService<Notification> notificationService)
     {
-        private readonly AppDbContext _context;
-        private readonly IPushSender _sender;
-
-        public NotificationService(AppDbContext context, IPushSender sender)
-        {
-            _context = context;
-            _sender = sender;
-        }
-        public async Task<int> QueueNotificationAsync(NotificationRequestDto req)
-        {
-            var entity = new NotificationMessage
-            {
-                Type = req.Type,
-                Recipient = req.Recipient,
-                Subject = req.Subject ?? string.Empty,
-                Message = req.Message,
-                Status = NotificationStatus.Pending,
-                CreatedAt = DateTime.UtcNow
-            };
-
-            await _context.NotificationMessages.AddAsync(entity);
-            await _context.SaveChangesAsync();
-
-            return entity.Id;
-        }
+        _notificationService = notificationService;
     }
+
+    public async Task<ApiResponse?> GetAllNotificationsForUserAsync(long userId)
+    {
+
+        var query = _notificationService.GetAll()
+            .Where(n => n.UserId == userId).OrderByDescending(n => n.NotificationId);
+
+        var notifications = await query.ToListAsync();
+        var totalRecords = await query.CountAsync();
+
+        return Response.Success(notifications, "Notifications retrieved successfully", totalRecords) as ApiResponse;
+    }
+
 }

@@ -32,12 +32,9 @@ namespace OpdHospital.Repositories
             return entity;
         }
 
-        public async Task<T?> UpdateAsync(int id, T entity)
+        public async Task<T?> UpdateAsync(T entity)
         {
-            var existing = await _dbSet.FindAsync(id);
-            if (existing == null) return null;
-
-            _context.Entry(existing).CurrentValues.SetValues(entity);
+            _dbSet.Update(entity);
             await _context.SaveChangesAsync();
             return entity;
         }

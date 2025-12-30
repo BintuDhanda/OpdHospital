@@ -19,13 +19,14 @@ namespace OpdHospital.Mappers
             };
         }
 
-        public static LogInResponseDto ToLogInResponseDto(this User user, string token)
+        public static LogInResponseDto ToLogInResponseDto(this User user, string token, string[] roles)
         {
             return new LogInResponseDto
             {
                 UserId = user.UserId,
                 UserName = user.UserName,
-                Token = token
+                Token = token,
+                Roles = roles
             };
         }
 

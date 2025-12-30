@@ -12,9 +12,13 @@ namespace OpdHospital.Services
     public class UserService : GenericService<User>, IUserService
     {
         private readonly IJwtHelper _jwtHelper;
-        public UserService(IGenericRepository<User> genericRepository, IJwtHelper jwtHelper) : base(genericRepository)
+        private readonly IGenericService<Role> _roleService;
+        private readonly IGenericService<UserRole> _userRoleService;
+        public UserService(IGenericRepository<User> genericRepository, IGenericService<Role> roleService, IGenericService<UserRole> userRoleService, IJwtHelper jwtHelper) : base(genericRepository)
         {
             _jwtHelper = jwtHelper;
+            _roleService = roleService;
+            _userRoleService = userRoleService;
         }
 
         public async Task<ApiResponse?> LogIn(LoginRequestDto loginRequest)
@@ -51,12 +55,22 @@ namespace OpdHospital.Services
             if (result == PasswordVerificationResult.Failed)
                 return Response.Fail("Invalid credentials") as ApiResponse;
 
+           
+        
+            var roleIds = await _userRoleService.GetAll()
+                            .Where(ur => ur.UserId == user.UserId)
+                            .Select(ur => ur.RoleId).ToListAsync();
+
+            var roles = (await _roleService.GetAll()
+                            .Where(r => roleIds.Contains(r.RoleId))
+                            .Select(s=>s.Name).ToListAsync()).ToArray();
+
             // Generate JWT token
-            var roles = new string[] { "Admin" };
+
             var token = _jwtHelper.GenerateToken(user.UserId, user.UserName, roles);
 
             return Response.Success(
-                user.ToLogInResponseDto(token),
+                user.ToLogInResponseDto(token, roles),
                 "Login successful"
             ) as ApiResponse;
         }
@@ -93,7 +107,7 @@ namespace OpdHospital.Services
                 return Response.Fail("Forgot password failed") as ApiResponse;
 
             return Response.Success(
-                message: "Forgot password success"
+                message: "Forgot password success. your otp is 1234"
             ) as ApiResponse;
         }
 
@@ -104,6 +118,42 @@ namespace OpdHospital.Services
             var user = await query.FirstOrDefaultAsync();
             if (user == null) return Response.Success(true, "Username is available") as ApiResponse;
             else return Response.Success(false, "Username is taken") as ApiResponse;
+        }
+        public async Task<ApiResponse?> ResetPassword(ResetPasswordRequestDto request)
+        {
+            var query = GetAll(); // IQueryable<User>
+
+            if (request.UserName.Contains("@"))
+            {
+                query = query.Where(u => u.Email == request.UserName);
+            }
+            else if (request.UserName.All(char.IsDigit))
+            {
+                query = query.Where(u => u.MobileNumber == request.UserName);
+            }
+            else
+            {
+                query = query.Where(u => u.UserName == request.UserName);
+            }
+
+            var user = await query.FirstOrDefaultAsync();
+
+            if (user == null)
+                return Response.Fail("Reset password failed") as ApiResponse;
+
+            // Here we should verify the OTP, but for simplicity, we skip it.
+
+            // Update password
+            var passwordHasher = new PasswordHasher<User>();
+            user.Password = passwordHasher.HashPassword(user, request.NewPassword);
+
+            if(request.Otp != "1234")
+                return Response.Fail("Invalid OTP") as ApiResponse;
+            await base.UpdateAsync(user);
+
+            return Response.Success(
+                message: "Password reset successful"
+            ) as ApiResponse;
         }
     }
 }
