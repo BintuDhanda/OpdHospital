@@ -210,9 +210,20 @@ public class DbSeeder
         {
              new Doctor()
              {
-                  FullName = "amit",
-                  DoctorId = 1
+                  FullName = "Dr. Ajay Nagpal",
+                  DoctorId = 1,
+                  Qualification = "MBBS (AIIMS), MPT",
+                  Department = SpecializationType.Psychiatrist
              },
+
+              new Doctor()
+             {
+                  FullName = "Dr. Priya Sharma",
+                  DoctorId = 2,
+                  Qualification = "MBBS (AIIMS), MPT",
+                  Department = SpecializationType.Cardiologist
+             },
+
         };
 
         context.AddRange(doctors);
@@ -223,7 +234,12 @@ public class DbSeeder
              new Hospital()
              {
                   HospitalId =1,
-                  HospitalName = "aman"
+                  HospitalName = "Saryodya Multispeciality Hospital"
+             },
+             new Hospital()
+             {
+                 HospitalId =2,
+                 HospitalName = "Apollo Medical Center"
              }
         };
 

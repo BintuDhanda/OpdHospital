@@ -16,6 +16,6 @@ namespace OpdHospital.Models
         public string PhoneNumber { get; set; } = string.Empty;
         public string Qualification { get; set; } = string.Empty;
         public string Experience { get; set; } = string.Empty;
-        public int DepartmentId { get; set; }
+        public SpecializationType Department { get; set; }
     }
 }

@@ -33,7 +33,9 @@ public class SearchService : ISearchService
             {
                 Id = d.DoctorId,
                 Name = d.FullName,
-                Type = "Doctor"
+                Type = "Doctor",
+                Rating = 2,
+                Department = d.Department.ToString()
             });
 
         var hospitalsQuery = _hospitalrGenericService.GetAll()
@@ -42,7 +44,9 @@ public class SearchService : ISearchService
             {
                 Id = h.HospitalId,
                 Name = h.HospitalName,
-                Type = "Hospital"
+                Type = "Hospital",
+                Rating =0,
+                Department = "N/A"
             });
 
         var result = await doctorsQuery
