@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OpdHospital.Interfaces;
 using OpdHospital.Models;
+using OpdHospital.Services;
 
 namespace OpdHospital.Controllers
 {
@@ -8,8 +9,23 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class AppointmentController : GenericController<Appointment>
     {
-        public AppointmentController(IGenericService<Appointment> genericService) : base(genericService)
+        private readonly IAppointmentService _appointmentService;
+
+        public AppointmentController(
+            IGenericService<Appointment> genericService,
+            IAppointmentService appointmentService
+        ) : base(genericService)
         {
+            _appointmentService = appointmentService;
         }
+
+        // GET: api/appointment/user/5
+        [HttpGet("User/{userId:long}")]
+        public Task<IActionResult> GetAppointmentsByUserId([FromRoute] long userId) =>
+            SafeExecute(async () =>
+            {
+                var result = await _appointmentService.GetAppointmentsByUserId(userId);
+                return Ok(result);
+            });
     }
 }

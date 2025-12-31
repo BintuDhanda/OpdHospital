@@ -1,14 +1,33 @@
-﻿using OpdHospital.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OpdHospital.Interfaces;
 using OpdHospital.Models;
+using OpdHospital.Utilities;
 
 namespace OpdHospital.Services
 {
-    public class AppointmentService : GenericService<Appointment>
+    public interface IAppointmentService
     {
-        private readonly IGenericRepository<Appointment> _genericRepository;
-        public AppointmentService(IGenericRepository<Appointment> genericRepository) : base(genericRepository)
+        Task<ApiResponse?> GetAppointmentsByUserId(long userId);
+    }
+
+
+    public class AppointmentService
+        : GenericService<Appointment>, IAppointmentService
+    {
+        public AppointmentService(
+            IGenericRepository<Appointment> genericRepository
+        ) : base(genericRepository)
         {
-            _genericRepository = genericRepository;
+        }
+
+        public async Task<ApiResponse?> GetAppointmentsByUserId(long userId)
+        {
+            var result = await base.GetAll()
+                .Where(w => w.CreatedBy == userId)
+                .OrderByDescending(d => d.AppointmentId)
+                .ToListAsync();
+
+            return Response.Success(result, "appointments") as ApiResponse;
         }
     }
 }

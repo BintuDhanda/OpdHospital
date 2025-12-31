@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Identity;
 using OpdHospital.Database;
+using OpdHospital.Enums;
 using OpdHospital.Models;
 
 namespace OpdHospital.Utilities;
@@ -9,9 +10,9 @@ public class DbSeeder
 {
     public static void Seed(AppDbContext context)
     {
-         context.Database.EnsureCreated();
+        context.Database.EnsureCreated();
 
-          var users = new List<User>
+        var users = new List<User>
             {
                 new User
                 {
@@ -25,10 +26,10 @@ public class DbSeeder
                 },
             };
 
-            context.Users.AddRange(users);
-            context.SaveChanges();
+        context.Users.AddRange(users);
+        context.SaveChanges();
 
-            var Roles = new List<Role>
+        var Roles = new List<Role>
             {
                 new Role
                 {
@@ -50,10 +51,10 @@ public class DbSeeder
                 },
             };
 
-            context.Roles.AddRange(Roles);
-            context.SaveChanges();
+        context.Roles.AddRange(Roles);
+        context.SaveChanges();
 
-            var userRoles = new List<UserRole>
+        var userRoles = new List<UserRole>
             {
                 new UserRole
                 {
@@ -62,10 +63,10 @@ public class DbSeeder
                 },
             };
 
-            context.UserRoles.AddRange(userRoles);
-            context.SaveChanges();
+        context.UserRoles.AddRange(userRoles);
+        context.SaveChanges();
 
-            var countries = new List<Country>
+        var countries = new List<Country>
             {
                 new Country
                 {
@@ -75,10 +76,10 @@ public class DbSeeder
                 },
             };
 
-            context.Countries.AddRange(countries);
-            context.SaveChanges();
+        context.Countries.AddRange(countries);
+        context.SaveChanges();
 
-            var states = new List<State>
+        var states = new List<State>
             {
                 new State
                 {
@@ -89,10 +90,10 @@ public class DbSeeder
                 },
             };
 
-            context.States.AddRange(states);
-            context.SaveChanges();
+        context.States.AddRange(states);
+        context.SaveChanges();
 
-            var notifications = new List<Notification>
+        var notifications = new List<Notification>
             {
                 new Notification
                 {
@@ -112,10 +113,10 @@ public class DbSeeder
                 },
             };
 
-            context.Notifications.AddRange(notifications);
-            context.SaveChanges();
+        context.Notifications.AddRange(notifications);
+        context.SaveChanges();
 
-            var patients = new List<Patient>
+        var patients = new List<Patient>
             {
                 new Patient
                 {
@@ -151,7 +152,83 @@ public class DbSeeder
                 },
             };
 
-            context.Patients.AddRange(patients);
-            context.SaveChanges();
+        context.Patients.AddRange(patients);
+        context.SaveChanges();
+
+        var appointments = new List<Appointment>
+        {
+            // 1️⃣ Fixed Time Appointment
+            new Appointment
+            {
+                AppointmentId = 1,
+                AppointmentType = AppointmentType.FixedTime,
+
+                DoctorId = 101,
+                PatientId = 201,
+                HospitalId = 301,
+
+                AppointmentDate = DateTime.Today.AddDays(1),
+                AppointmentTime = new TimeSpan(10, 30, 0), // 10:30 AM
+
+                Status = AppointmentStatus.Cancelled,
+
+                AppointmentFee = 500m,
+                PlatformFee = 50m,
+
+                Remarks = "First-time consultation",
+                CreatedBy = 1
+            },
+
+            // 2️⃣ Package Appointment (Visit 2 of Package)
+            new Appointment
+            {
+                AppointmentId = 2,
+                AppointmentType = AppointmentType.PackageVisit,
+
+                DoctorId = 102,
+                PatientId = 202,
+                HospitalId = 301,
+
+                PackageId = 9001,
+                PackageVisitNumber = 2,
+
+                Status = AppointmentStatus.Completed,
+
+                AppointmentFee = 0m,      // Included in package
+                PlatformFee = 0m,
+
+                Remarks = "Physiotherapy package visit",
+                CreatedBy = 1
+            }
+        };
+
+        context.AddRange(appointments);
+        context.SaveChanges();
+
+
+        var doctors = new List<Doctor>()
+        {
+             new Doctor()
+             {
+                  FullName = "amit",
+                  DoctorId = 1
+             },
+        };
+
+        context.AddRange(doctors);
+        context.SaveChanges();
+
+        var hospitals = new List<Hospital>()
+        {
+             new Hospital()
+             {
+                  HospitalId =1,
+                  HospitalName = "aman"
+             }
+        };
+
+        context.AddRange(hospitals);
+        context.SaveChanges();
+
     }
 }
