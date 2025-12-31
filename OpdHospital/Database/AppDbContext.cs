@@ -47,6 +47,7 @@ namespace OpdHospital.Database
             modelBuilder.Entity<Refunds>().HasKey(rf => rf.RefundId);
             modelBuilder.Entity<TimeSlot>().HasKey(ts => ts.Id);
             modelBuilder.Entity<PasswordResetToken>().HasKey(d => d.Id);
+            modelBuilder.Entity<Patient>().HasKey(p=>p.Id);
 
             base.OnModelCreating(modelBuilder);
         }

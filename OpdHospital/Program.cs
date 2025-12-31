@@ -86,6 +86,7 @@ namespace OpdHospital
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
             builder.Services.AddScoped<ISearchService, SearchService>();
+            builder.Services.AddScoped<IPatientService, PatientService>();
             builder.Services.AddScoped<INotificationService, NotificationService>();
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();

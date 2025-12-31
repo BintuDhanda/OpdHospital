@@ -115,5 +115,43 @@ public class DbSeeder
             context.Notifications.AddRange(notifications);
             context.SaveChanges();
 
+            var patients = new List<Patient>
+            {
+                new Patient
+                {
+                    Id = 1,
+                    FirstName = "John",
+                    MiddleName = "A.",
+                    LastName = "Doe",
+                    UserId = 1,
+                    Address = "123 Main St",
+                    BloodGroup = "O+",
+                    DOB = new DateTime(1990, 1, 1),
+                    Age = 34,
+                    MobileNumber = "9876543210",
+                    Email = "john.doe@example.com",
+                    CreatedAt = DateTime.UtcNow,
+                    Gender = "Male"
+                },
+                new Patient
+                {
+                    Id = 2,
+                    FirstName = "Jane",
+                    MiddleName = "B.",
+                    LastName = "Smith",
+                    UserId = 1,
+                    Address = "456 Elm St",
+                    BloodGroup = "A-",
+                    DOB = new DateTime(1985, 5, 15),
+                    Age = 38,
+                    MobileNumber = "8765432109",
+                    Email = "jane.smith@example.com",
+                    CreatedAt = DateTime.UtcNow,
+                    Gender = "Female"
+                },
+            };
+
+            context.Patients.AddRange(patients);
+            context.SaveChanges();
     }
 }
