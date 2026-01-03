@@ -52,5 +52,26 @@
                 {
                     return Ok(await _userService.ResetPassword(request));
                 });
+
+           [HttpPost("send-otp")]
+        public async Task<IActionResult> SendOtp([FromBody] SendOtpRequest request)
+        {
+            return await SafeExecute(async () =>
+            {
+                var result = await _userService.SendOtpAsync(request.MobileNumber);
+                return Ok(result);
+            });
+        }
+
+        [HttpPost("verify-otp")]
+        public async Task<IActionResult> VerifyOtp([FromBody] OtpVerifyRequestDto request)
+        {
+            return await SafeExecute(async () =>
+            {
+                var result = await _userService.VerifyOtpAsync(request);
+                return Ok(result);
+            });
+        }
+
         }
     }

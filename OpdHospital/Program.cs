@@ -24,12 +24,12 @@ namespace OpdHospital
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowAngularApp", policy =>
+                options.AddPolicy("AllowAll", policy =>
                 {
-                    policy.WithOrigins("http://localhost:4200")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod()
-                          .AllowCredentials();
+                    policy
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
                 });
             });
 
@@ -94,9 +94,9 @@ namespace OpdHospital
             builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.AddHttpContextAccessor();
-            builder.Services.AddScoped<IJwtHelper, JwtHelper>();    
+            builder.Services.AddScoped<IJwtHelper, JwtHelper>();
             builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-            
+
             builder.Services.AddScoped<IPushSender, FcmPushSenderService>();
             //builder.Services.AddHostedService<NotificationBackgroundService>();
 
@@ -104,7 +104,6 @@ namespace OpdHospital
             builder.Services.AddTransient<ISmsSender, TwilioSmsSenderService>();  // Correct class name
             builder.Services.AddHttpClient<FcmPushSenderService>();
             builder.Services.AddSingleton<IMemoryCache, MemoryCache>();
-            builder.Services.AddScoped<OtpService>();
 
 
             var app = builder.Build();

@@ -7,6 +7,7 @@ namespace OpdHospital.Models
     {
         [Key]
         public int DoctorId { get; set; }
+        public long UserId { get; set;}
         public int HospitalId { get; set; }
         public string FullName { get; set; } = string.Empty;
         public Gender Gender { get; set; } 

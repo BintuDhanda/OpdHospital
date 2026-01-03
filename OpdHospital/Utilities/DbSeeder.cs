@@ -46,9 +46,19 @@ public class DbSeeder
                 new Role
                 {
                     RoleId = 3,
-                    Name = "Nurse",
+                    Name = "SalePartner",
                     CreatedAt = DateTime.UtcNow
                 },
+                new Role
+                {
+                 RoleId = 4,
+                 Name = "Patient"
+                },
+                new Role
+                {
+                    RoleId = 5,
+                     Name = "Hospital"
+                }
             };
 
         context.Roles.AddRange(Roles);

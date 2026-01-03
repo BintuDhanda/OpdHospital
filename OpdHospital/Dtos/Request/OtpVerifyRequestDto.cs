@@ -2,7 +2,7 @@
 {
     public class OtpVerifyRequestDto
     {
-        public string Identifier { get; set; }
-        public string Otp {  get; set; }
+       public string MobileNumber { get; set; }
+        public string Otp { get; set; }
     }
 }

@@ -2,7 +2,8 @@
 {
     public class SalePartner : BaseEntity
     {
-        public int Id { get; set; }
+        public int SalePartnerId { get; set; }
+        public long UserId { get; set; }
         public string Name { get; set; } = string.Empty;
         public decimal? DefaultCommPct { get; set; } = 0;
         public string GstNumber { get; set; } = string.Empty;

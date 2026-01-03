@@ -13,8 +13,6 @@ namespace OpdHospital.Mappers
             return new User
             {
                 UserName = dto.Username,
-                Email = dto.Email,
-                MobileNumber = dto.MobileNumber,
                 Password = new PasswordHasher<User>().HashPassword(null, dto.Password)
             };
         }
@@ -30,13 +28,17 @@ namespace OpdHospital.Mappers
             };
         }
 
-        public static RegisterResponseDto ToRegisterResponseDto(this User user)
+        public static RegisterResponseDto ToRegisterResponseDto(this User user, string roleName, int salesPartnerId, int hospitalId, int doctorId)
         {
             return new RegisterResponseDto
             {
                 UserId = user.UserId,
                 UserName = user.UserName,
-                Email = user.Email
+                Email = user.Email,
+                DoctorId = doctorId,
+                HospitalId = hospitalId,
+                SalePartnerId = salesPartnerId,
+                RoleName =  roleName
             };
         }
     }

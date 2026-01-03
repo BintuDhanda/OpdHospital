@@ -14,5 +14,7 @@ namespace OpdHospital.Interfaces
         public Task<ApiResponse?> ForgotPassword(ForgotPasswordRequestDto forgotPasswordRequest);
         public Task<ApiResponse?> IsUsernameAvailable(string username);
         public Task<ApiResponse?> ResetPassword(ResetPasswordRequestDto resetPasswordRequest);
+        public Task<ApiResponse?> SendOtpAsync(string mobileNumber);
+        public Task<ApiResponse?> VerifyOtpAsync(OtpVerifyRequestDto otpVerifyRequestDto);
     }
 }  

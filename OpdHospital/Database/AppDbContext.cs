@@ -8,7 +8,7 @@ using System.Reflection;
 namespace OpdHospital.Database
 {
     public class AppDbContext : DbContext
-    {   
+    {
         private readonly IJwtHelper _jwtHelper;
         public AppDbContext(DbContextOptions<AppDbContext> options, IJwtHelper jwtHelper)
             : base(options)
@@ -41,13 +41,13 @@ namespace OpdHospital.Database
             modelBuilder.Entity<AuditEventDetail>().HasKey(aed => aed.AuditDetailId);
             modelBuilder.Entity<PasswordResetToken>().HasKey(prt => prt.Id);
             modelBuilder.Entity<OpdVisit>().HasKey(ov => ov.Id);
-            modelBuilder.Entity<SalePartner>().HasKey(sp => sp.Id);
+            modelBuilder.Entity<SalePartner>().HasKey(sp => sp.SalePartnerId);
             modelBuilder.Entity<Invoice>().HasKey(i => i.Id);
             modelBuilder.Entity<CommissionRule>().HasKey(cr => cr.Id);
             modelBuilder.Entity<Refunds>().HasKey(rf => rf.RefundId);
             modelBuilder.Entity<TimeSlot>().HasKey(ts => ts.Id);
             modelBuilder.Entity<PasswordResetToken>().HasKey(d => d.Id);
-            modelBuilder.Entity<Patient>().HasKey(p=>p.Id);
+            modelBuilder.Entity<Patient>().HasKey(p => p.Id);
 
             base.OnModelCreating(modelBuilder);
         }
@@ -78,6 +78,7 @@ namespace OpdHospital.Database
         public DbSet<CommissionRule> CommissionRules { get; set; }
         public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
         public DbSet<NotificationMessage> NotificationMessages { get; set; }
+        public DbSet<OtpRequest> OtpRequests {get; set;}
         public DbSet<OtpSetting> OtpSettings { get; set; }
 
         public DbSet<AuditEvent> AuditEvents => Set<AuditEvent>();
@@ -91,7 +92,21 @@ namespace OpdHospital.Database
             CancellationToken cancellationToken = default)
         {
             var auditEvents = CreateAuditEvents();
+            var userId = _jwtHelper.GetUserId();
 
+            foreach (var entry in ChangeTracker.Entries<BaseEntity>())
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = DateTime.UtcNow;
+                    entry.Entity.CreatedBy = userId;
+                }
+                else if (entry.State == EntityState.Modified)
+                {
+                    entry.Entity.UpdatedAt = DateTime.UtcNow;
+                    entry.Entity.UpdatedBy = userId;
+                }
+            }
             var result = await base.SaveChangesAsync(cancellationToken);
 
             if (auditEvents.Any())
@@ -187,7 +202,7 @@ namespace OpdHospital.Database
 
         private long GetCurrentUserId()
         {
-           return _jwtHelper.GetUserId();
+            return _jwtHelper.GetUserId();
         }
 
         private string? GetIpAddress()

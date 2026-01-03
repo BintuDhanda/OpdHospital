@@ -48,5 +48,15 @@ namespace OpdHospital.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> DeleteAsync(long id)
+        {
+            var entity = await _dbSet.FindAsync(id);
+            if (entity == null) return false;
+
+            _dbSet.Remove(entity);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }
