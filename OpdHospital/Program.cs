@@ -107,6 +107,7 @@ namespace OpdHospital
 
 
             var app = builder.Build();
+            app.UseCors("AllowAll");
 
             if (true || app.Environment.IsDevelopment())
             {

@@ -12,7 +12,8 @@ namespace OpdHospital.Mappers
         {
             return new User
             {
-                UserName = dto.Username,
+                Email = dto.Email,
+                MobileNumber = dto.MobileNumber,
                 Password = new PasswordHasher<User>().HashPassword(null, dto.Password)
             };
         }
@@ -22,7 +23,6 @@ namespace OpdHospital.Mappers
             return new LogInResponseDto
             {
                 UserId = user.UserId,
-                UserName = user.UserName,
                 Token = token,
                 Roles = roles
             };
@@ -33,7 +33,6 @@ namespace OpdHospital.Mappers
             return new RegisterResponseDto
             {
                 UserId = user.UserId,
-                UserName = user.UserName,
                 Email = user.Email,
                 DoctorId = doctorId,
                 HospitalId = hospitalId,

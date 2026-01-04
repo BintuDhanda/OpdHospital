@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using OpdHospital.Interfaces;
 using OpdHospital.Models;
 using OpdHospital.Models.Audit;
+using OpdHospital.Utilities;
 using System.Reflection;
 
 namespace OpdHospital.Database

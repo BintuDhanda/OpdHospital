@@ -1,11 +1,16 @@
 using Microsoft.IdentityModel.Tokens;
-using OpdHospital.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace OpdHospital.Utilities
 {
+    public interface IJwtHelper
+    {
+        string GenerateToken(long userId, string email, string mobileNumber, string[] role);
+        long GetUserId();
+    }
+
     public class JwtHelper : IJwtHelper
     {
         private readonly IConfiguration _configuration;
@@ -25,12 +30,13 @@ namespace OpdHospital.Utilities
 
         // ===================== GENERATE JWT =====================
 
-        public string GenerateToken(long userId, string userName, string[] role)
+        public string GenerateToken(long userId, string email, string mobileNumber, string[] role)
         {
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-                new Claim(ClaimTypes.Name, userName),
+                new Claim(ClaimTypes.Email, email),
+                new Claim(ClaimTypes.MobilePhone, mobileNumber),
                 new Claim(ClaimTypes.Role, string.Join(",", role))
             };
 

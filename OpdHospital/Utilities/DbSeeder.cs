@@ -17,7 +17,6 @@ public class DbSeeder
                 new User
                 {
                     UserId = 1,
-                    UserName = "admin",
                     Email = "admin@example.com",
                     MobileNumber = "1234567890",
                     IsUserLocked = false,

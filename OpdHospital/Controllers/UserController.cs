@@ -1,59 +1,52 @@
-﻿    using Microsoft.AspNetCore.Mvc;
-    using OpdHospital.Dtos;
-    using OpdHospital.Dtos.Request;
-    using OpdHospital.Interfaces;
-    using OpdHospital.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using OpdHospital.Dtos;
+using OpdHospital.Dtos.Request;
+using OpdHospital.Interfaces;
+using OpdHospital.Models;
 
 
-    namespace OpdHospital.Controllers
+namespace OpdHospital.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UserController : GenericController<User>
     {
-        [ApiController]
-        [Route("api/[controller]")]
-        public class UserController : GenericController<User>
+        private readonly IUserService _userService;
+        public UserController(IGenericService<User> service, IUserService userService) : base(service)
         {
-            private readonly IUserService _userService;
-            public UserController(IGenericService<User> service, IUserService userService ) : base(service)
+            _userService = userService;
+        }
+
+
+        [HttpPost("login")]
+        public Task<IActionResult> LogIn([FromBody] LoginRequestDto request) =>
+            SafeExecute(async () =>
             {
-                _userService = userService;
-            }
+                return Ok(await _userService.LogIn(request));
+            });
 
-            
-            [HttpPost("login")]
-            public Task<IActionResult> LogIn([FromBody] LoginRequestDto request) =>
-                SafeExecute(async () =>
-                {
-                    return Ok(await _userService.LogIn(request));
-                });
+        [HttpPost("register")]
+        public Task<IActionResult> Register([FromBody] RegisterRequestDto request) =>
+            SafeExecute(async () =>
+            {
+                return Ok(await _userService.Register(request));
+            });
 
-            [HttpPost("register")]
-            public Task<IActionResult> Register([FromBody] RegisterRequestDto request) =>
-                SafeExecute(async () =>
-                {
-                    return Ok(await _userService.Register(request));
-                });
+        [HttpPost("forgot-password")]
+        public Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequestDto request) =>
+            SafeExecute(async () =>
+            {
+                return Ok(await _userService.ForgotPassword(request));
+            });
 
-            [HttpPost("forgot-password")]
-            public Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequestDto request) =>
-                SafeExecute(async () =>
-                {
-                    return Ok(await _userService.ForgotPassword(request));
-                });
+        [HttpPost("ResetPassword")]
+        public Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequestDto request) =>
+            SafeExecute(async () =>
+            {
+                return Ok(await _userService.ResetPassword(request));
+            });
 
-            [HttpGet("IsUsernameAvailable/{username}")]
-            public Task<IActionResult> IsUsernameAvailable(string username) =>
-                SafeExecute(async () =>
-                {
-                    return Ok(await _userService.IsUsernameAvailable(username));
-                });
-
-            [HttpPost("ResetPassword")]
-            public Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequestDto request) =>
-                SafeExecute(async () =>
-                {
-                    return Ok(await _userService.ResetPassword(request));
-                });
-
-           [HttpPost("send-otp")]
+        [HttpPost("send-otp")]
         public async Task<IActionResult> SendOtp([FromBody] SendOtpRequest request)
         {
             return await SafeExecute(async () =>
@@ -73,5 +66,5 @@
             });
         }
 
-        }
     }
+}

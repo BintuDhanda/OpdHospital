@@ -4,14 +4,9 @@ namespace OpdHospital.Dtos.Request
 {
     public class RegisterRequestDto
     {
-        [Required]
-        public string Username { get; set; }
-
-        [Required]
-        public string Password { get; set; }
-
-        [Required]
-        public string RoleName { get; set; } 
-
+        public string Email { get; set; } = string.Empty;
+        public string MobileNumber { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string RoleName { get; set; } = string.Empty;
     }
 }

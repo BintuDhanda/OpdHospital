@@ -45,17 +45,17 @@ namespace OpdHospital.Services
             var query = GetAll(); // IQueryable<User>
 
             // Identify login type
-            if (loginRequest.UserName.Contains("@"))
+            if (!string.IsNullOrEmpty(loginRequest.Email))
             {
-                query = query.Where(u => u.Email == loginRequest.UserName);
+                query = query.Where(u => u.Email == loginRequest.Email);
             }
-            else if (loginRequest.UserName.All(char.IsDigit))
+            else if (! string.IsNullOrEmpty(loginRequest.MobileNumber))
             {
-                query = query.Where(u => u.MobileNumber == loginRequest.UserName);
+                query = query.Where(u => u.MobileNumber == loginRequest.MobileNumber);
             }
             else
             {
-                query = query.Where(u => u.UserName == loginRequest.UserName);
+                 return Response.Fail("Either Mobile or Email Not Supplied") as ApiResponse;
             }
 
             var user = await query.FirstOrDefaultAsync();
@@ -75,7 +75,6 @@ namespace OpdHospital.Services
                 return Response.Fail("Invalid credentials") as ApiResponse;
 
 
-
             var roleIds = await _userRoleService.GetAll()
                             .Where(ur => ur.UserId == user.UserId)
                             .Select(ur => ur.RoleId).ToListAsync();
@@ -86,7 +85,7 @@ namespace OpdHospital.Services
 
             // Generate JWT token
 
-            var token = _jwtHelper.GenerateToken(user.UserId, user.UserName, roles);
+            var token = _jwtHelper.GenerateToken(user.UserId, user.Email, user.MobileNumber, roles);
 
             return Response.Success(
                 user.ToLogInResponseDto(token, roles),
@@ -99,36 +98,35 @@ namespace OpdHospital.Services
             if (string.IsNullOrWhiteSpace(registerRequest.RoleName))
                 return Response.Fail("Role is required") as ApiResponse;
 
-            // geneate User Name based on the role 
-            registerRequest.Username = await UsernameHelper.GenerateUniqueUsernameAsync(registerRequest.RoleName, async username => await GetAll().AnyAsync(u => u.UserName == username));
-            // 1. Map User
+             if (string.IsNullOrWhiteSpace(registerRequest.Email) || string.IsNullOrWhiteSpace(registerRequest.MobileNumber))
+                return Response.Fail("Role is required") as ApiResponse;
+
+            // Map User
             var user = UserMapper.ToEntity(registerRequest);
-
-            // user name exists 
-
-            if (await base.GetAll().AnyAsync(a => a.UserName == registerRequest.Username))
+            
+            // user exists 
+            if (await base.GetAll().AnyAsync(a => a.MobileNumber == registerRequest.MobileNumber || a.Email == registerRequest.Email))
                 return Response.Fail("User name already Exists") as ApiResponse;
 
-            // 2. Fetch Role
+            // Fetch Role
             var role = await _roleService.GetAll()
                 .FirstOrDefaultAsync(r => r.Name == registerRequest.RoleName);
 
             if (role == null)
                 return Response.Fail("Invalid role") as ApiResponse;
 
-            // 3. Save User
+            // Save User
             var savedUser = await AddAsync(user);
 
             if (savedUser == null)
                 return Response.Fail("Registration failed") as ApiResponse;
 
-            // 4. Map User-Role
+            // Map User-Role
             await _userRoleService.AddAsync(new UserRole
             {
                 UserId = savedUser.UserId,
                 RoleId = role.RoleId
             });
-
 
             // Return Record Id & Role
             int salesPartnerId = 0;
@@ -147,8 +145,6 @@ namespace OpdHospital.Services
                     {
                         UserId = user.UserId,
                         FullName = "NEW_ADDED",
-                        CreatedAt = DateTime.Now,
-                        CreatedBy = createdBy
                     });
                     doctorId = resultDoctor.DoctorId;
                     break;
@@ -158,8 +154,6 @@ namespace OpdHospital.Services
                     {
                         UserId = savedUser.UserId,
                         HospitalName = "NEW_ADDED",
-                        CreatedAt = DateTime.Now,
-                        CreatedBy = createdBy
                     });
                     hospitalId = resultHospital.HospitalId;
                     break;
@@ -169,8 +163,6 @@ namespace OpdHospital.Services
                     {
                         UserId = savedUser.UserId,
                         Name = "NEW_ADDED",
-                        CreatedAt = DateTime.Now,
-                        CreatedBy = createdBy
                     });
                     salesPartnerId = resultSalesPartner.SalePartnerId;
                     break;
@@ -190,17 +182,17 @@ namespace OpdHospital.Services
         {
             var query = GetAll(); // IQueryable<User>
 
-            if (request.UserName.Contains("@"))
+            if (!string.IsNullOrEmpty(request.Email))
             {
-                query = query.Where(u => u.Email == request.UserName);
+                query = query.Where(u => u.Email == request.Email);
             }
-            else if (request.UserName.All(char.IsDigit))
+            else if (! string.IsNullOrEmpty(request.MobileNumber))
             {
-                query = query.Where(u => u.MobileNumber == request.UserName);
+                query = query.Where(u => u.MobileNumber == request.MobileNumber);
             }
             else
             {
-                query = query.Where(u => u.UserName == request.UserName);
+                 return Response.Fail("Provide Either Email or Mobile Number") as ApiResponse;
             }
 
             var userExists = await query.AnyAsync();
@@ -212,31 +204,22 @@ namespace OpdHospital.Services
                 message: "Forgot password success. your otp is 1234"
             ) as ApiResponse;
         }
-
-        public async Task<ApiResponse?> IsUsernameAvailable(string username)
-        {
-            var query = GetAll();
-            query = query.Where(u => u.UserName == username);
-            var user = await query.FirstOrDefaultAsync();
-            if (user == null) return Response.Success(true, "Username is available") as ApiResponse;
-            else return Response.Success(false, "Username is taken") as ApiResponse;
-        }
         public async Task<ApiResponse?> ResetPassword(ResetPasswordRequestDto request)
         {
             var query = GetAll(); // IQueryable<User>
 
-            if (request.UserName.Contains("@"))
-            {
-                query = query.Where(u => u.Email == request.UserName);
-            }
-            else if (request.UserName.All(char.IsDigit))
-            {
-                query = query.Where(u => u.MobileNumber == request.UserName);
-            }
-            else
-            {
-                query = query.Where(u => u.UserName == request.UserName);
-            }
+            // if (request.UserName.Contains("@"))
+            // {
+            //     query = query.Where(u => u.Email == request.UserName);
+            // }
+            // else if (request.UserName.All(char.IsDigit))
+            // {
+            //     query = query.Where(u => u.MobileNumber == request.UserName);
+            // }
+            // else
+            // {
+            //     query = query.Where(u => u.UserName == request.UserName);
+            // }
 
             var user = await query.FirstOrDefaultAsync();
 
@@ -333,7 +316,7 @@ namespace OpdHospital.Services
             var roles = new string[]{"Patient"};
 
             // 6. Generate JWT
-            var token = _jwtHelper.GenerateToken(user.UserId, user.MobileNumber, roles);
+            var token = _jwtHelper.GenerateToken(user.UserId, user.Email, user.MobileNumber, roles);
     
             // 7. Cleanup OTP
             await _otpRequestService.DeleteAsync(otpEntry.Id);
