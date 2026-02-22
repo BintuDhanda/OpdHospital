@@ -23,6 +23,51 @@ public class DbSeeder
                     CreatedAt = DateTime.UtcNow,
                     Password = new PasswordHasher<User>().HashPassword(null, "Admin@123")
                 },
+                new User
+                {
+                    UserId = 2,
+                    Email = "doctor@example.com",
+                    MobileNumber = "0987654321",
+                    IsUserLocked = false,
+                    CreatedAt = DateTime.UtcNow,
+                    Password = new PasswordHasher<User>().HashPassword(null, "Doctor@123"),
+                },
+                new User
+                {
+                    UserId = 3,
+                    Email = "sales@example.com",
+                    MobileNumber = "1122334455",
+                    IsUserLocked = false,
+                    CreatedAt = DateTime.UtcNow,
+                    Password = new PasswordHasher<User>().HashPassword(null, "Sales@123"),
+                },
+                new User
+                {
+                    UserId = 4,
+                    Email = "hospital@example.com",
+                    MobileNumber = "5566778899",
+                    IsUserLocked = false,
+                    CreatedAt = DateTime.UtcNow,
+                    Password = new PasswordHasher<User>().HashPassword(null, "Hospital@123"),
+                },
+                new User
+                {
+                    UserId = 5,
+                    Email = "patient@example.com",
+                    MobileNumber = "9988776655",
+                    IsUserLocked = false,
+                    CreatedAt = DateTime.UtcNow,
+                    Password = new PasswordHasher<User>().HashPassword(null, "Patient@123"),
+                },
+                new User
+                {
+                    UserId = 6,
+                    Email = "patientanddoctor@example.com",
+                    MobileNumber = "1234567891",
+                    IsUserLocked = false,
+                    CreatedAt = DateTime.UtcNow,
+                    Password = new PasswordHasher<User>().HashPassword(null, "PatientAndDoctor@123"),
+                }
             };
 
         context.Users.AddRange(users);
@@ -70,6 +115,36 @@ public class DbSeeder
                     UserId = 1,
                     RoleId = 1
                 },
+                new UserRole
+                {
+                    UserId = 2,
+                    RoleId = 2
+                },
+                new UserRole
+                {
+                    UserId = 3,
+                    RoleId = 3
+                },
+                new UserRole
+                {
+                    UserId = 4,
+                    RoleId = 5
+                },
+                new UserRole
+                {   UserId = 5,
+                    RoleId = 4
+                },
+                new UserRole
+                {
+                    UserId = 6,
+                    RoleId = 2
+                },
+                new UserRole
+                {   
+                    UserId = 6,
+                    RoleId = 4
+                }
+                
             };
 
         context.UserRoles.AddRange(userRoles);

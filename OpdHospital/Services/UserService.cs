@@ -313,7 +313,10 @@ namespace OpdHospital.Services
                user =  await base.AddAsync(user);
             }
 
-            var roles = new string[]{"Patient"};
+            var roles = (await _userRoleService.GetAll()
+                            .Where(ur => ur.UserId == user.UserId)
+                            .Join(_roleService.GetAll(), ur => ur.RoleId, r => r.RoleId, (ur, r) => r.Name)
+                            .ToListAsync()).ToArray();
 
             // 6. Generate JWT
             var token = _jwtHelper.GenerateToken(user.UserId, user.Email, user.MobileNumber, roles);

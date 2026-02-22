@@ -1,0 +1,5 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "OpdHospital/bin/Release/net8.0/publish",
+    "appService.defaultWebAppToDeploy": "/subscriptions/7b701b85-90d8-4291-9b5b-1ea8baae18b8/resourceGroups/unifiedOPD/providers/Microsoft.Web/sites/uopd"
+}
