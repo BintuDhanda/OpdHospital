@@ -12,23 +12,23 @@ using OpdHospital.Utilities;
 
 namespace OpdHospital.Services
 {
-    public class UserService : GenericService<User>, IUserService
+    public class UserService : GenericService<User, long>, IUserService
     {
         private readonly IJwtHelper _jwtHelper;
-        private readonly IGenericService<Role> _roleService;
-        private readonly IGenericService<UserRole> _userRoleService;
-        private readonly IGenericService<SalePartner> _salesPartnerService;
-        private readonly IGenericService<Hospital> _hospitalService;
-        private readonly IGenericService<Doctor> _doctorService;
-        private readonly IGenericService<OtpRequest> _otpRequestService;
-        public UserService(IGenericRepository<User> genericRepository,
-        IGenericService<Role> roleService,
-        IGenericService<UserRole> userRoleService,
+        private readonly IGenericService<Role, int> _roleService;
+        private readonly IGenericService<UserRole, long> _userRoleService;
+        private readonly IGenericService<SalePartner, int> _salesPartnerService;
+        private readonly IGenericService<Hospital, int> _hospitalService;
+        private readonly IGenericService<Doctor, int> _doctorService;
+        private readonly IGenericService<OtpRequest, long> _otpRequestService;
+        public UserService(IGenericRepository<User, long> genericRepository,
+        IGenericService<Role, int> roleService,
+        IGenericService<UserRole, long> userRoleService,
         IJwtHelper jwtHelper,
-        IGenericService<SalePartner> salesPartnerService,
-        IGenericService<Hospital> hospitalService,
-        IGenericService<Doctor> doctorService,
-        IGenericService<OtpRequest> otpRequestService)
+        IGenericService<SalePartner, int> salesPartnerService,
+        IGenericService<Hospital, int> hospitalService,
+        IGenericService<Doctor, int> doctorService,
+        IGenericService<OtpRequest, long> otpRequestService)
         : base(genericRepository)
         {
             _jwtHelper = jwtHelper;
