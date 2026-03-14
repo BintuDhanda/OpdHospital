@@ -1,4 +1,5 @@
-﻿using OpdHospital.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OpdHospital.Interfaces;
 using OpdHospital.Models;
 
 namespace OpdHospital.Services
@@ -11,10 +12,15 @@ namespace OpdHospital.Services
         {
             _repository = repository;
         }
+
+        public async Task<IEnumerable<Doctor>> GetDoctorsByHospitalId(int hospitalId)
+        {
+            return await base.GetAll().Where(d => d.HospitalId == hospitalId).ToListAsync();
+        }
     }
 
     public interface IDoctorService
     {
-        
+        Task<IEnumerable<Doctor>> GetDoctorsByHospitalId(int hospitalId);
     }
 }
