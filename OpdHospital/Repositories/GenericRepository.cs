@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OpdHospital.Database;
 using OpdHospital.Interfaces;
+using OpdHospital.Models;
 
 namespace OpdHospital.Repositories
 {
-    public class GenericRepository<T, TKey> : IGenericRepository<T, TKey> where T : class
+    public class GenericRepository<T, TKey> : IGenericRepository<T, TKey> where T : class, IEntity<TKey>
     {
         private readonly AppDbContext _context;
         private readonly DbSet<T> _dbSet;

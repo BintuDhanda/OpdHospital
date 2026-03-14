@@ -1,6 +1,8 @@
-﻿namespace OpdHospital.Interfaces
+﻿using OpdHospital.Models;
+
+namespace OpdHospital.Interfaces
 {
-    public interface IGenericRepository<T, TKey> where T : class
+    public interface IGenericRepository<T, TKey> where T : class, IEntity<TKey>
     {
         IQueryable<T> GetAll();
         Task<T?> GetByIdAsync(TKey id);

@@ -11,13 +11,13 @@ namespace OpdHospital.Controllers
             {
                 var messages = ModelState
                     .Where(kvp => kvp.Value?.Errors?.Count > 0)
-                    .SelectMany(kvp => kvp.Value.Errors.Select(err =>
+                    .SelectMany(kvp => kvp.Value?.Errors?.Select(err =>
                     {
                         // If error has Exception (e.g. JSON parse), include its message too
                         return string.IsNullOrWhiteSpace(err.ErrorMessage) && err.Exception != null
                             ? err.Exception.Message
                             : err.ErrorMessage;
-                    }))
+                    }) ?? Enumerable.Empty<string>())
                     .Where(m => !string.IsNullOrWhiteSpace(m))
                     .ToList();
 
@@ -27,7 +27,7 @@ namespace OpdHospital.Controllers
                     messages = ModelState.Values
                         .SelectMany(v => v.Errors)
                         .Where(e => e.Exception != null)
-                        .Select(e => e.Exception.Message)
+                        .Select(e => e.Exception?.Message ?? "")
                         .ToList();
                 }
 

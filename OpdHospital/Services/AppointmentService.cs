@@ -12,10 +12,10 @@ namespace OpdHospital.Services
 
 
     public class AppointmentService
-        : GenericService<Appointment>, IAppointmentService
+        : GenericService<Appointment, long>, IAppointmentService
     {
         public AppointmentService(
-            IGenericRepository<Appointment> genericRepository
+            IGenericRepository<Appointment, long> genericRepository
         ) : base(genericRepository)
         {
         }

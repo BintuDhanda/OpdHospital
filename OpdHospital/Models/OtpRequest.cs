@@ -2,9 +2,9 @@ using System;
 
 namespace OpdHospital.Models;
 
-public class OtpRequest
+public class OtpRequest : IEntity<long>
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
     public string MobileNumber { get; set; }
     public string OtpHash { get; set; }
     public DateTime ExpiryAt { get; set; }
