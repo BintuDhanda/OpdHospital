@@ -16,6 +16,5 @@ namespace OpdHospital.Models
         public string? Email { get; set; }
         public string Address { get; set; }
         public string BloodGroup { get; set; }
-        public long UserId { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace OpdHospital.Repositories
 
         public async Task<T?> GetByIdAsync(TKey id)
         {
-            return await _dbSet.FindAsync(id);
+            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(e => e.Id.Equals(id));
         }
 
         public async Task<T> AddAsync(T entity)

@@ -184,7 +184,6 @@ public class DbSeeder
             },
              new Patient
             {
-                UserId = 5,
                 FirstName = "sister",           
                 CreatedAt = DateTime.UtcNow,
                 Address = "123 Main St",

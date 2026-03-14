@@ -22,7 +22,7 @@ namespace OpdHospital.Services
         {
             var query = base.GetAll();
 
-            query = query.Where(w=>w.UserId == userId);
+            query = query.Where(w=>w.CreatedBy == userId);
 
             var result = await query.ToListAsync();
             var total = await query.CountAsync();
