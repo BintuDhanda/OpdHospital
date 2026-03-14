@@ -7,7 +7,7 @@ namespace OpdHospital.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PaymentMethodController : GenericController<PaymentMethod>
+    public class PaymentMethodController : GenericController<PaymentMethod, int>
     {
         public PaymentMethodController(IGenericService<PaymentMethod> genericService) : base(genericService)
         {

@@ -7,7 +7,7 @@ namespace OpdHospital.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppointmentController : GenericController<Appointment>
+    public class AppointmentController : GenericController<Appointment, long>
     {
         private readonly IAppointmentService _appointmentService;
 

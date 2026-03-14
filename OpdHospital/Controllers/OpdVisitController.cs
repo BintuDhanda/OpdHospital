@@ -7,7 +7,7 @@ namespace OpdHospital.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OpdVisitController : GenericController<OpdVisit>
+    public class OpdVisitController : GenericController<OpdVisit, int>
     {
         public OpdVisitController(IGenericService<OpdVisit> genericService) : base(genericService)
         {

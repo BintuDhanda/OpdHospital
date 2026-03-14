@@ -2,10 +2,10 @@
 
 namespace OpdHospital.Models
 {
-    public class State : BaseEntity
+    public class State : BaseEntity, IEntity<int>
     {
         [Key]
-        public int StateId { get; set; }
+        public int Id { get; set; }
         public int CountryId { get; set; }
         public string StateName { get; set; } = string.Empty;
     }

@@ -22,7 +22,7 @@ namespace OpdHospital.Mappers
         {
             return new LogInResponseDto
             {
-                UserId = user.UserId,
+                UserId = user.Id,
                 Token = token,
                 Roles = roles
             };
@@ -32,7 +32,7 @@ namespace OpdHospital.Mappers
         {
             return new RegisterResponseDto
             {
-                UserId = user.UserId,
+                UserId = user.Id,
                 Email = user.Email,
                 DoctorId = doctorId,
                 HospitalId = hospitalId,

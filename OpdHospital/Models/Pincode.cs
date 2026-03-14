@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OpdHospital.Models
 {
-    public class Pincode : BaseEntity
+    public class Pincode : BaseEntity, IEntity<long>
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string PinCode { get; set; }
         public string AreaName { get; set; }
 

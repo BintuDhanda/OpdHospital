@@ -7,7 +7,7 @@ namespace OpdHospital.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StateController : GenericController<State>
+    public class StateController : GenericController<State, int>
     {
         public StateController(IGenericService<State> genericService) : base(genericService)
         {

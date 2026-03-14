@@ -4,10 +4,10 @@ using OpdHospital.Enums;
 
 namespace OpdHospital.Models
 {
-    public class Refunds : BaseEntity
+    public class Refunds : BaseEntity, IEntity<long>
     {
         [Key]
-        public long RefundId { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// Original payment reference

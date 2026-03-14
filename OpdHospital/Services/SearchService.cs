@@ -31,7 +31,7 @@ public class SearchService : ISearchService
             .Where(d => d.FullName.Contains(query))
             .Select(d => new SearchResultDto
             {
-                Id = d.DoctorId,
+                Id = d.Id,
                 Name = d.FullName,
                 Type = "Doctor",
                 Rating = 2,
@@ -42,7 +42,7 @@ public class SearchService : ISearchService
             .Where(h => h.HospitalName.Contains(query))
             .Select(h => new SearchResultDto
             {
-                Id = h.HospitalId,
+                Id = h.Id,
                 Name = h.HospitalName,
                 Type = "Hospital",
                 Rating =0,

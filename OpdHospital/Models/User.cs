@@ -2,10 +2,10 @@
 
 namespace OpdHospital.Models
 {
-    public class User : BaseEntity
+    public class User : BaseEntity, IEntity<long>
     {
         [Key]
-        public long UserId { get; set; }
+        public long Id { get; set; }
         public string MobileNumber { get; set; } = string.Empty;
         public bool IsMobileNumberVerified { get; set; }
         public string Email { get; set; } = string.Empty;

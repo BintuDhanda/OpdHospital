@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OpdHospital.Models
 {
-    public class DoctorAvailability : BaseEntity
+    public class DoctorAvailability : BaseEntity, IEntity<long>
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         [ForeignKey("Doctor")]
         public int DoctorId { get; set; }
         public Doctor Doctor { get; set; }

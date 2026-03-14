@@ -2,7 +2,7 @@
 
 namespace OpdHospital.Models
 {
-    public class CommissionRule : BaseEntity
+    public class CommissionRule : BaseEntity, IEntity<int>
     {
         public int Id { get; set; }
         [ForeignKey("Doctor")]

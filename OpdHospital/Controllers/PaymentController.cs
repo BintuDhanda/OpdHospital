@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OpdHospital.Interfaces;
 using OpdHospital.Models;
-using OpdHospital.Services;
+
 
 namespace OpdHospital.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PaymentController : GenericController<Payment>
+    public class PaymentController : GenericController<Payment, long>
     {
         public PaymentController(IGenericService<Payment> genericService) : base(genericService)
         {

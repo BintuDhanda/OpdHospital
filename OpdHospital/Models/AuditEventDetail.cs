@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OpdHospital.Models.Audit
 {
-    public class AuditEventDetail
+    public class AuditEventDetail : IEntity<long>
     {
         [Key]
-        public long AuditDetailId { get; set; }
+        public long Id { get; set; }
 
         [ForeignKey(nameof(AuditEvent))]
         public long AuditEventId { get; set; }

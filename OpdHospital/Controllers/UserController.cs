@@ -9,7 +9,7 @@ namespace OpdHospital.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : GenericController<User>
+    public class UserController : GenericController<User, long>
     {
         private readonly IUserService _userService;
         public UserController(IGenericService<User> service, IUserService userService) : base(service)

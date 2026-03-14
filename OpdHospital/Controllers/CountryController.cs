@@ -7,7 +7,7 @@ namespace OpdHospital.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountryController : GenericController<Country>
+    public class CountryController : GenericController<Country, int>
     {
         public CountryController(IGenericService<Country> genericService) : base(genericService)
         {

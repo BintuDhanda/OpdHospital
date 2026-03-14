@@ -16,7 +16,7 @@ public class DbSeeder
             {
                 new User
                 {
-                    UserId = 1,
+                    Id = 1,
                     Email = "admin@example.com",
                     MobileNumber = "1234567890",
                     IsUserLocked = false,
@@ -25,7 +25,7 @@ public class DbSeeder
                 },
                 new User
                 {
-                    UserId = 2,
+                    Id = 2,
                     Email = "doctor@example.com",
                     MobileNumber = "0987654321",
                     IsUserLocked = false,
@@ -34,7 +34,7 @@ public class DbSeeder
                 },
                 new User
                 {
-                    UserId = 3,
+                    Id = 3,
                     Email = "sales@example.com",
                     MobileNumber = "1122334455",
                     IsUserLocked = false,
@@ -43,7 +43,7 @@ public class DbSeeder
                 },
                 new User
                 {
-                    UserId = 4,
+                    Id = 4,
                     Email = "hospital@example.com",
                     MobileNumber = "5566778899",
                     IsUserLocked = false,
@@ -52,7 +52,7 @@ public class DbSeeder
                 },
                 new User
                 {
-                    UserId = 5,
+                    Id = 5,
                     Email = "patient@example.com",
                     MobileNumber = "9988776655",
                     IsUserLocked = false,
@@ -61,7 +61,7 @@ public class DbSeeder
                 },
                 new User
                 {
-                    UserId = 6,
+                    Id = 6,
                     Email = "patientanddoctor@example.com",
                     MobileNumber = "1234567891",
                     IsUserLocked = false,
@@ -77,30 +77,30 @@ public class DbSeeder
             {
                 new Role
                 {
-                    RoleId = 1,
+                    Id = 1,
                     Name = "Administrator",
                     CreatedAt = DateTime.UtcNow
                 },
                 new Role
                 {
-                    RoleId = 2,
+                    Id = 2,
                     Name = "Doctor",
                     CreatedAt = DateTime.UtcNow
                 },
                 new Role
                 {
-                    RoleId = 3,
+                    Id = 3,
                     Name = "SalePartner",
                     CreatedAt = DateTime.UtcNow
                 },
                 new Role
                 {
-                 RoleId = 4,
+                 Id = 4,
                  Name = "Patient"
                 },
                 new Role
                 {
-                    RoleId = 5,
+                    Id = 5,
                      Name = "Hospital"
                 }
             };
@@ -150,11 +150,67 @@ public class DbSeeder
         context.UserRoles.AddRange(userRoles);
         context.SaveChanges();
 
+        var patientBook = new List<Patient>
+        {
+            new Patient
+            {
+                Id = 1,
+                UserId = 5,
+                FirstName = "father",
+                CreatedAt = DateTime.UtcNow,
+                Address = "123 Main St",
+                BloodGroup = "O+",
+                DOB = new DateTime(1960, 1, 1),
+                Age = 64,
+                MobileNumber = "9876543210",
+                Email = "father@example.com",
+                Gender = "Male",
+                LastName = "Doe",
+                CreatedBy = 1
+            },
+            new Patient
+            {
+                Id = 2,
+                UserId = 5,
+                FirstName = "mother",
+                CreatedAt = DateTime.UtcNow,
+                Address = "123 Main St",
+                BloodGroup = "A+",
+                DOB = new DateTime(1965, 5, 15),
+                Age = 59,
+                MobileNumber = "8765432109",
+                Email = "mother@example.com",
+                Gender = "Female",
+                LastName = "Smith",
+                CreatedBy = 1
+            },
+             new Patient
+            {
+                Id = 3,
+                UserId = 5,
+                FirstName = "sister",           
+                CreatedAt = DateTime.UtcNow,
+                Address = "123 Main St",
+                BloodGroup = "B+",
+                DOB = new DateTime(1995, 3, 20),        
+                Age = 28,
+                MobileNumber = "7654321098",
+                Email = "sister@example.com",
+                Gender = "Female",
+                LastName = "Johnson",
+                CreatedBy = 1
+            }
+           
+        };
+
+        context.Patients.AddRange(patientBook);
+        context.SaveChanges();
+
         var countries = new List<Country>
             {
                 new Country
                 {
-                    CountryId = 1,
+                    Id = 1,
                     Name = "India",
                     CreatedAt = DateTime.UtcNow
                 },
@@ -167,7 +223,7 @@ public class DbSeeder
             {
                 new State
                 {
-                    StateId = 1,
+                    Id = 1,
                     StateName = "Haryana",
                     CountryId = 1,
                     CreatedAt = DateTime.UtcNow
@@ -181,7 +237,7 @@ public class DbSeeder
             {
                 new Notification
                 {
-                    NotificationId = 1,
+                    Id = 1,
                     UserId = 1,
                     NotificationTitle = "Welcome",
                     NotificationMessage = "Welcome to the OpdHospital system!",
@@ -189,7 +245,7 @@ public class DbSeeder
                 },
                 new Notification
                 {
-                    NotificationId = 2,
+                    Id = 2,
                     UserId = 1,
                     NotificationTitle = "System Update",
                     NotificationMessage = "The system will undergo maintenance tonight.",
@@ -204,7 +260,6 @@ public class DbSeeder
             {
                 new Patient
                 {
-                    Id = 1,
                     FirstName = "John",
                     MiddleName = "A.",
                     LastName = "Doe",
@@ -220,7 +275,6 @@ public class DbSeeder
                 },
                 new Patient
                 {
-                    Id = 2,
                     FirstName = "Jane",
                     MiddleName = "B.",
                     LastName = "Smith",
@@ -244,7 +298,7 @@ public class DbSeeder
             // 1️⃣ Fixed Time Appointment
             new Appointment
             {
-                AppointmentId = 1,
+                Id = 1,
                 AppointmentType = AppointmentType.FixedTime,
 
                 DoctorId = 101,
@@ -266,7 +320,7 @@ public class DbSeeder
             // 2️⃣ Package Appointment (Visit 2 of Package)
             new Appointment
             {
-                AppointmentId = 2,
+                Id = 2,
                 AppointmentType = AppointmentType.PackageVisit,
 
                 DoctorId = 102,
@@ -295,7 +349,7 @@ public class DbSeeder
              new Doctor()
              {
                   FullName = "Dr. Ajay Nagpal",
-                  DoctorId = 1,
+                  Id = 1,
                   Qualification = "MBBS (AIIMS), MPT",
                   Department = SpecializationType.Psychiatrist
              },
@@ -303,7 +357,7 @@ public class DbSeeder
               new Doctor()
              {
                   FullName = "Dr. Priya Sharma",
-                  DoctorId = 2,
+                  Id = 2,
                   Qualification = "MBBS (AIIMS), MPT",
                   Department = SpecializationType.Cardiologist
              },
@@ -317,12 +371,12 @@ public class DbSeeder
         {
              new Hospital()
              {
-                  HospitalId =1,
+                  Id =1,
                   HospitalName = "Saryodya Multispeciality Hospital"
              },
              new Hospital()
              {
-                 HospitalId =2,
+                 Id =2,
                  HospitalName = "Apollo Medical Center"
              }
         };

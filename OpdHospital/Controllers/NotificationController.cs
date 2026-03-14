@@ -8,7 +8,7 @@ namespace OpdHospital.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class NotificationController : GenericController<Notification>
+    public class NotificationController : GenericController<Notification, long>
     {
         private readonly INotificationService _notificationService;
         public NotificationController(IGenericService<Notification> service, INotificationService notificationService) : base(service)

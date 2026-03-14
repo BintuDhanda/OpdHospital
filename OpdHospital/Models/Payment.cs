@@ -4,10 +4,10 @@ using OpdHospital.Enums;
 
 namespace OpdHospital.Models
 {
-    public class Payment : BaseEntity
+    public class Payment : BaseEntity, IEntity<long>
     {
         [Key]
-        public long PaymentId { get; set; }
+        public long Id { get; set; }
 
         public long AppointmentId { get; set; }
 

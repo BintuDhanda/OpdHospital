@@ -2,7 +2,7 @@
 
 namespace OpdHospital.Models
 {
-    public class Department : BaseEntity
+    public class Department : BaseEntity, IEntity<int>
     {
         [Key]
         public int Id { get; set; }

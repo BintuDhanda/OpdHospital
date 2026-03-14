@@ -3,7 +3,7 @@ using OpdHospital.Enums;
 
 namespace OpdHospital.Models
 {
-    public class OpdVisit : BaseEntity
+    public class OpdVisit : BaseEntity, IEntity<int>
     {
         public int Id { get; set; }
         public string VisitNumber { get; set; }

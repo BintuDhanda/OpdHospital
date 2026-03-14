@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OpdHospital.Interfaces;
 using OpdHospital.Models;
 using OpdHospital.Services;
@@ -7,7 +8,7 @@ namespace OpdHospital.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PatientController : GenericController<Patient>
+    public class PatientController : GenericController<Patient, int>
     {
         private readonly IPatientService _patientService;
 

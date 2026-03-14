@@ -23,7 +23,7 @@ public class NotificationService : INotificationService
     {
 
         var query = _notificationService.GetAll()
-            .Where(n => n.UserId == userId).OrderByDescending(n => n.NotificationId);
+            .Where(n => n.UserId == userId).OrderByDescending(n => n.Id);
 
         var notifications = await query.ToListAsync();
         var totalRecords = await query.CountAsync();

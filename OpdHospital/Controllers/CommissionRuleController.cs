@@ -7,7 +7,7 @@ namespace OpdHospital.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CommissionRuleController : GenericController<CommissionRule>
+    public class CommissionRuleController : GenericController<CommissionRule, int>
     {
         public CommissionRuleController(IGenericService<CommissionRule> genericService) : base(genericService)
         {

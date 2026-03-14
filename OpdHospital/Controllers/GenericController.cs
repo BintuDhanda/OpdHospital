@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OpdHospital.Interfaces;
+using OpdHospital.Models;
 using OpdHospital.Utilities;
 
 namespace OpdHospital.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GenericController<T> : BaseController where T : class
+    public class GenericController<T, Tkey> : BaseController where T : class, IEntity<Tkey>
     {
         private readonly IGenericService<T> _genericService;
 
@@ -45,9 +46,10 @@ namespace OpdHospital.Controllers
             });
 
         [HttpPut("{id}")]
-        public Task<IActionResult> Update(T entity) =>
+        public Task<IActionResult> Update(Tkey id, T entity) =>
             SafeExecute(async () =>
             {
+                entity.Id = id;
                 var updated = await _genericService.UpdateAsync(entity);
                 if (updated == null)
                     return Ok(Utilities.Response.Fail("Update failed"));

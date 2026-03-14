@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OpdHospital.Models
 {
-    public class Invoice : BaseEntity
+    public class Invoice : BaseEntity, IEntity<int>
     {
         [Key]
         public int Id { get; set; }

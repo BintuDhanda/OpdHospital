@@ -7,7 +7,7 @@ namespace OpdHospital.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuditEventController : GenericController<AuditEvent>
+    public class AuditEventController : GenericController<AuditEvent, long>
     {
         public AuditEventController(IGenericService<AuditEvent> genericService, IJwtHelper jwtHelper) : base(genericService)
         {

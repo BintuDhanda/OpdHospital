@@ -1,8 +1,8 @@
 ﻿namespace OpdHospital.Models
 {
-    public class TimeSlot : BaseEntity
+    public class TimeSlot : BaseEntity, IEntity<long>
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
     }

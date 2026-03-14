@@ -3,10 +3,10 @@ using OpdHospital.Enums;
 
 namespace OpdHospital.Models
 {
-    public class Hospital : BaseEntity
+    public class Hospital : BaseEntity, IEntity<int>
     {
         [Key]
-        public int HospitalId { get; set; }
+        public int Id { get; set; }
         public long UserId { get; set; }
         public string HospitalName { get; set; } = null!;
         public HospitalType HospitalType { get; set; }

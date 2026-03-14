@@ -76,16 +76,16 @@ namespace OpdHospital.Services
 
 
             var roleIds = await _userRoleService.GetAll()
-                            .Where(ur => ur.UserId == user.UserId)
+                            .Where(ur => ur.UserId == user.Id)
                             .Select(ur => ur.RoleId).ToListAsync();
 
             var roles = (await _roleService.GetAll()
-                            .Where(r => roleIds.Contains(r.RoleId))
+                            .Where(r => roleIds.Contains(r.Id))
                             .Select(s => s.Name).ToListAsync()).ToArray();
 
             // Generate JWT token
 
-            var token = _jwtHelper.GenerateToken(user.UserId, user.Email, user.MobileNumber, roles);
+            var token = _jwtHelper.GenerateToken(user.Id, user.Email, user.MobileNumber, roles);
 
             return Response.Success(
                 user.ToLogInResponseDto(token, roles),
@@ -124,8 +124,8 @@ namespace OpdHospital.Services
             // Map User-Role
             await _userRoleService.AddAsync(new UserRole
             {
-                UserId = savedUser.UserId,
-                RoleId = role.RoleId
+                UserId = savedUser.Id,
+                RoleId = role.Id
             });
 
             // Return Record Id & Role
@@ -143,28 +143,28 @@ namespace OpdHospital.Services
                 case "doctor":
                     var resultDoctor = await _doctorService.AddAsync(new Doctor
                     {
-                        UserId = user.UserId,
+                        UserId = user.Id,
                         FullName = "NEW_ADDED",
                     });
-                    doctorId = resultDoctor.DoctorId;
+                    doctorId = resultDoctor.Id;
                     break;
 
                 case "hospital":
                     var resultHospital = await _hospitalService.AddAsync(new Hospital
                     {
-                        UserId = savedUser.UserId,
+                        UserId = savedUser.Id,
                         HospitalName = "NEW_ADDED",
                     });
-                    hospitalId = resultHospital.HospitalId;
+                    hospitalId = resultHospital.Id;
                     break;
 
                 case "salepartner":
                     var resultSalesPartner = await _salesPartnerService.AddAsync(new SalePartner
                     {
-                        UserId = savedUser.UserId,
+                        UserId = savedUser.Id,
                         Name = "NEW_ADDED",
                     });
-                    salesPartnerId = resultSalesPartner.SalePartnerId;
+                    salesPartnerId = resultSalesPartner.Id;
                     break;
 
                 default:
@@ -314,12 +314,12 @@ namespace OpdHospital.Services
             }
 
             var roles = (await _userRoleService.GetAll()
-                            .Where(ur => ur.UserId == user.UserId)
-                            .Join(_roleService.GetAll(), ur => ur.RoleId, r => r.RoleId, (ur, r) => r.Name)
+                            .Where(ur => ur.UserId == user.Id)
+                            .Join(_roleService.GetAll(), ur => ur.RoleId, r => r.Id, (ur, r) => r.Name)
                             .ToListAsync()).ToArray();
 
             // 6. Generate JWT
-            var token = _jwtHelper.GenerateToken(user.UserId, user.Email, user.MobileNumber, roles);
+            var token = _jwtHelper.GenerateToken(user.Id, user.Email, user.MobileNumber, roles);
     
             // 7. Cleanup OTP
             await _otpRequestService.DeleteAsync(otpEntry.Id);
@@ -328,7 +328,7 @@ namespace OpdHospital.Services
             {
                  Token = token,
                 Roles = roles,
-                 UserId = user.UserId
+                 UserId = user.Id
             };
 
             return Response.Success(verifyOtpResponse, "Login successful") as ApiResponse;

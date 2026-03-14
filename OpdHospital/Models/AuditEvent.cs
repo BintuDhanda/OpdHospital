@@ -2,10 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OpdHospital.Models.Audit
 {
-    public class AuditEvent
+    public class AuditEvent : BaseEntity, IEntity<long>
     {
         [Key]
-        public long AuditEventId { get; set; }
+        public long Id { get; set; }
 
         [Required]
         public string EntityName { get; set; } = null!;

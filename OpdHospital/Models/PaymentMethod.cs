@@ -2,7 +2,7 @@
 
 namespace OpdHospital.Models
 {
-    public class PaymentMethod : BaseEntity
+    public class PaymentMethod : BaseEntity, IEntity<int>
     {
         [Key]
         public int Id { get; set; }

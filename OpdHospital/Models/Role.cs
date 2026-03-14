@@ -2,10 +2,10 @@
 
 namespace OpdHospital.Models
 {
-    public class Role : BaseEntity
+    public class Role : BaseEntity, IEntity<int>
     {
         [Key]
-        public int RoleId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
     }
 }

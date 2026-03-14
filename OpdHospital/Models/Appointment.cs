@@ -5,10 +5,10 @@ using OpdHospital.Enums;
 namespace OpdHospital.Models
 {
     [Table("Appointments")]
-    public class Appointment : BaseEntity
+    public class Appointment : BaseEntity, IEntity<long>
     {
         [Key]
-        public long AppointmentId { get; set; }
+        public long Id { get; set; }
 
         public AppointmentType AppointmentType { get; set; }
 

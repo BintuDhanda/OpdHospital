@@ -24,7 +24,7 @@ namespace OpdHospital.Services
         {
             var result = await base.GetAll()
                 .Where(w => w.CreatedBy == userId)
-                .OrderByDescending(d => d.AppointmentId)
+                .OrderByDescending(d => d.Id)
                 .ToListAsync();
 
             return Response.Success(result, "appointments") as ApiResponse;

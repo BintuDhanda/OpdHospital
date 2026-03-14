@@ -7,7 +7,7 @@ namespace OpdHospital.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PincodeController : GenericController<Pincode>
+    public class PincodeController : GenericController<Pincode, long>
     {
         public PincodeController(IGenericService<Pincode> genericService) : base(genericService)
         {

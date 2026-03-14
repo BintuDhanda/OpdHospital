@@ -1,8 +1,8 @@
 ﻿namespace OpdHospital.Models
 {
-    public class SalePartner : BaseEntity
+    public class SalePartner : BaseEntity, IEntity<int>
     {
-        public int SalePartnerId { get; set; }
+        public int Id { get; set; }
         public long UserId { get; set; }
         public string Name { get; set; } = string.Empty;
         public decimal? DefaultCommPct { get; set; } = 0;
