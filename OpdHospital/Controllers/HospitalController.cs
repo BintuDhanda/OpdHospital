@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OpdHospital.Interfaces;
 using OpdHospital.Models;
+using OpdHospital.Services;
 
 namespace OpdHospital.Controllers
 {
@@ -9,8 +10,17 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class HospitalController : GenericController<Hospital, int>
     {
-        public HospitalController(IGenericService<Hospital, int> genericService) : base(genericService)
+        private readonly IHospitalService _hospitalService;
+        public HospitalController(IGenericService<Hospital, int> genericService, IHospitalService hospitalService) : base(genericService)
         {
+            _hospitalService = hospitalService;
+        }
+
+        [HttpGet("GetHospitalsBySalesPartnerId/{salesPartnerId}")]
+        public async Task<IActionResult> GetHospitalsBySalesPartnerId(int salesPartnerId)
+        {
+            var hospitals = await _hospitalService.GetHospitalsBySalesPartnerIdAsync(salesPartnerId);
+            return Ok(hospitals);
         }
     }
 }

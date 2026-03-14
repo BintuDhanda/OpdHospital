@@ -121,6 +121,7 @@ namespace OpdHospital
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IStateService, StateService>();
             builder.Services.AddScoped<ICityService, CityService>();
+            builder.Services.AddScoped<IHospitalService, HospitalService>();
 
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<IJwtHelper, JwtHelper>();

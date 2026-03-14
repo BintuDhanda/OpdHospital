@@ -34,7 +34,6 @@ namespace OpdHospital.Database
             modelBuilder.Entity<Payment>().HasKey(p => p.Id);
             modelBuilder.Entity<PaymentMethod>().HasKey(pm => pm.Id);
             modelBuilder.Entity<DoctorAvailability>().HasKey(ts => ts.Id);
-            modelBuilder.Entity<Pincode>().HasKey(p => p.Id);
             modelBuilder.Entity<NotificationMessage>().HasKey(nm => nm.Id);
             modelBuilder.Entity<OtpSetting>().HasKey(os => os.Id);
             modelBuilder.Entity<AuditEvent>().HasKey(ae => ae.Id);
@@ -67,7 +66,6 @@ namespace OpdHospital.Database
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PaymentMethod> PaymentsMethod { get; set; }
-        public DbSet<Pincode> Pincodes { get; set; }
         public DbSet<Refunds> Refunds { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<TimeSlot> TimeSlots { get; set; }

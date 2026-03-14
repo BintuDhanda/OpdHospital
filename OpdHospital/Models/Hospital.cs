@@ -31,5 +31,6 @@ namespace OpdHospital.Models
         public PayoutStatus PayoutStatus { get; set; }
         public long OnboardedByUserId { get; set; }
         public DateTime OnboardedOn { get; set; }
+        public long SalesPartnerId { get; set; }
     }
 }
