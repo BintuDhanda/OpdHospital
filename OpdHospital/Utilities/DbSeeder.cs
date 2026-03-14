@@ -241,7 +241,6 @@ public class DbSeeder
                 {
                     Id = 1,
                     Name = "India",
-                    CreatedAt = DateTime.UtcNow
                 },
             };
 
@@ -255,11 +254,23 @@ public class DbSeeder
                     Id = 1,
                     StateName = "Haryana",
                     CountryId = 1,
-                    CreatedAt = DateTime.UtcNow
                 },
             };
 
         context.States.AddRange(states);
+        context.SaveChanges();
+
+        var cities = new List<City>
+            {
+                new City
+                {
+                    Id = 1,
+                    CityName = "Gurgaon",
+                    StateId = 1,
+                },
+            };
+
+        context.Cities.AddRange(cities);
         context.SaveChanges();
 
         var notifications = new List<Notification>

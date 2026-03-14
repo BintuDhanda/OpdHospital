@@ -2,7 +2,7 @@
 
 namespace OpdHospital.Models
 {
-    public class State : BaseEntity, IEntity<int>
+    public class State : IEntity<int>
     {
         [Key]
         public int Id { get; set; }

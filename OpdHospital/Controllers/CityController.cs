@@ -10,8 +10,17 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class CityController : GenericController<City, int>
     {
-        public CityController(IGenericService<City, int> genericService) : base(genericService)
+        private readonly ICityService _cityService;
+        public CityController(IGenericService<City, int> genericService, ICityService cityService) : base(genericService)
         {
+            _cityService = cityService;
         }
+        
+        [HttpGet("GetCitiesByStateId/{stateId}")]
+        public Task<IActionResult> GetCitiesByStateId(int stateId) =>
+            SafeExecute(async () =>
+            {
+                return Ok(await _cityService.GetCitiesByStateId(stateId));
+            });
     }
 }
