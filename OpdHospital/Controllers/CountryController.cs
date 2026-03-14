@@ -9,7 +9,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class CountryController : GenericController<Country, int>
     {
-        public CountryController(IGenericService<Country> genericService) : base(genericService)
+        public CountryController(IGenericService<Country, int> genericService) : base(genericService)
         {
         }
     }

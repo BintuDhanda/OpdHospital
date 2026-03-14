@@ -9,7 +9,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class PincodeController : GenericController<Pincode, long>
     {
-        public PincodeController(IGenericService<Pincode> genericService) : base(genericService)
+        public PincodeController(IGenericService<Pincode, long> genericService) : base(genericService)
         {
         }
     }

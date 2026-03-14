@@ -4,23 +4,23 @@ using OpdHospital.Interfaces;
 
 namespace OpdHospital.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T, TKey> : IGenericRepository<T, TKey> where T : class
     {
         private readonly AppDbContext _context;
         private readonly DbSet<T> _dbSet;
+
         public GenericRepository(AppDbContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();
         }
 
-
         public IQueryable<T> GetAll()
         {
-            return  _dbSet;
+            return _dbSet;
         }
 
-        public async Task<T?> GetByIdAsync(int id)
+        public async Task<T?> GetByIdAsync(TKey id)
         {
             return await _dbSet.FindAsync(id);
         }
@@ -39,17 +39,7 @@ namespace OpdHospital.Repositories
             return entity;
         }
 
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var entity = await _dbSet.FindAsync(id);
-            if (entity == null) return false;
-
-            _dbSet.Remove(entity);
-            await _context.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<bool> DeleteAsync(long id)
+        public async Task<bool> DeleteAsync(TKey id)
         {
             var entity = await _dbSet.FindAsync(id);
             if (entity == null) return false;

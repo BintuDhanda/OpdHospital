@@ -154,8 +154,6 @@ public class DbSeeder
         {
             new Patient
             {
-                Id = 1,
-                UserId = 5,
                 FirstName = "father",
                 CreatedAt = DateTime.UtcNow,
                 Address = "123 Main St",
@@ -166,12 +164,11 @@ public class DbSeeder
                 Email = "father@example.com",
                 Gender = "Male",
                 LastName = "Doe",
-                CreatedBy = 1
+                CreatedBy = 1,
+                UpdatedBy = 1
             },
             new Patient
             {
-                Id = 2,
-                UserId = 5,
                 FirstName = "mother",
                 CreatedAt = DateTime.UtcNow,
                 Address = "123 Main St",
@@ -182,11 +179,11 @@ public class DbSeeder
                 Email = "mother@example.com",
                 Gender = "Female",
                 LastName = "Smith",
-                CreatedBy = 1
+                CreatedBy = 1,
+                UpdatedBy = 1
             },
              new Patient
             {
-                Id = 3,
                 UserId = 5,
                 FirstName = "sister",           
                 CreatedAt = DateTime.UtcNow,
@@ -198,8 +195,41 @@ public class DbSeeder
                 Email = "sister@example.com",
                 Gender = "Female",
                 LastName = "Johnson",
-                CreatedBy = 1
-            }
+                CreatedBy = 1,
+                UpdatedBy = 1
+            },
+             new Patient
+                {
+                    FirstName = "John",
+                    MiddleName = "A.",
+                    LastName = "Doe",
+                    Address = "123 Main St",
+                    BloodGroup = "O+",
+                    DOB = new DateTime(1990, 1, 1),
+                    Age = 34,
+                    MobileNumber = "9876543210",
+                    Email = "john.doe@example.com",
+                    CreatedAt = DateTime.UtcNow,
+                    Gender = "Male",
+                    CreatedBy = 1,
+                    UpdatedBy = 1
+                },
+                new Patient
+                {
+                    FirstName = "Jane",
+                    MiddleName = "B.",
+                    LastName = "Smith",
+                    Address = "456 Elm St",
+                    BloodGroup = "A-",
+                    DOB = new DateTime(1985, 5, 15),
+                    Age = 38,
+                    MobileNumber = "8765432109",
+                    Email = "jane.smith@example.com",
+                    CreatedAt = DateTime.UtcNow,
+                    Gender = "Female",
+                    CreatedBy = 1,
+                    UpdatedBy = 1
+                },
            
         };
 
@@ -254,43 +284,6 @@ public class DbSeeder
             };
 
         context.Notifications.AddRange(notifications);
-        context.SaveChanges();
-
-        var patients = new List<Patient>
-            {
-                new Patient
-                {
-                    FirstName = "John",
-                    MiddleName = "A.",
-                    LastName = "Doe",
-                    UserId = 1,
-                    Address = "123 Main St",
-                    BloodGroup = "O+",
-                    DOB = new DateTime(1990, 1, 1),
-                    Age = 34,
-                    MobileNumber = "9876543210",
-                    Email = "john.doe@example.com",
-                    CreatedAt = DateTime.UtcNow,
-                    Gender = "Male"
-                },
-                new Patient
-                {
-                    FirstName = "Jane",
-                    MiddleName = "B.",
-                    LastName = "Smith",
-                    UserId = 1,
-                    Address = "456 Elm St",
-                    BloodGroup = "A-",
-                    DOB = new DateTime(1985, 5, 15),
-                    Age = 38,
-                    MobileNumber = "8765432109",
-                    Email = "jane.smith@example.com",
-                    CreatedAt = DateTime.UtcNow,
-                    Gender = "Female"
-                },
-            };
-
-        context.Patients.AddRange(patients);
         context.SaveChanges();
 
         var appointments = new List<Appointment>

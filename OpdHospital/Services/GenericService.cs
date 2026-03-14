@@ -1,12 +1,13 @@
 ﻿using OpdHospital.Interfaces;
+using OpdHospital.Models;
 
 namespace OpdHospital.Services
 {
-    public class GenericService<T> : IGenericService<T> where T : class
+    public class GenericService<T, TKey> : IGenericService<T, TKey> where T : class, IEntity<TKey>
     {
-        private readonly IGenericRepository<T> _genericRepository;
+        private readonly IGenericRepository<T, TKey> _genericRepository;
 
-        public GenericService(IGenericRepository<T> genericRepository)
+        public GenericService(IGenericRepository<T, TKey> genericRepository)
         {
             _genericRepository = genericRepository;
         }
@@ -16,22 +17,17 @@ namespace OpdHospital.Services
             return await _genericRepository.AddAsync(entity);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(TKey id)
         {
             return await _genericRepository.DeleteAsync(id);
         }
 
-        public async Task<bool> DeleteAsync(long id)
-        {
-            return await _genericRepository.DeleteAsync(id);
-        }
-        
         public IQueryable<T> GetAll()
         {
-            return  _genericRepository.GetAll();
+            return _genericRepository.GetAll();
         }
 
-        public async Task<T?> GetByIdAsync(int id)
+        public async Task<T?> GetByIdAsync(TKey id)
         {
             return await _genericRepository.GetByIdAsync(id);
         }

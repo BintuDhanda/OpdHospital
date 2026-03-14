@@ -9,7 +9,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class PaymentController : GenericController<Payment, long>
     {
-        public PaymentController(IGenericService<Payment> genericService) : base(genericService)
+        public PaymentController(IGenericService<Payment, long> genericService) : base(genericService)
         {
         }
     }

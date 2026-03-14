@@ -13,8 +13,8 @@ public interface INotificationService
 
 public class NotificationService : INotificationService
 {
-    private readonly IGenericService<Notification> _notificationService;
-    public NotificationService(IGenericService<Notification> notificationService)
+    private readonly IGenericService<Notification, long> _notificationService;
+    public NotificationService(IGenericService<Notification, long> notificationService)
     {
         _notificationService = notificationService;
     }

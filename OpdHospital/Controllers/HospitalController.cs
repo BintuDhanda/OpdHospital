@@ -9,7 +9,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class HospitalController : GenericController<Hospital, int>
     {
-        public HospitalController(IGenericService<Hospital> genericService) : base(genericService)
+        public HospitalController(IGenericService<Hospital, int> genericService) : base(genericService)
         {
         }
     }

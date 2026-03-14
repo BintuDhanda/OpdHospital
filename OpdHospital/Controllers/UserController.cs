@@ -12,7 +12,7 @@ namespace OpdHospital.Controllers
     public class UserController : GenericController<User, long>
     {
         private readonly IUserService _userService;
-        public UserController(IGenericService<User> service, IUserService userService) : base(service)
+        public UserController(IGenericService<User, long> service, IUserService userService) : base(service)
         {
             _userService = userService;
         }

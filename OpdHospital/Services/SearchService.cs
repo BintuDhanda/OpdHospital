@@ -14,10 +14,10 @@ public interface ISearchService
 
 public class SearchService : ISearchService
 {
-    private readonly IGenericService<Doctor> _doctorGenericService;
-    private readonly IGenericService<Hospital> _hospitalrGenericService;
+    private readonly IGenericService<Doctor, int> _doctorGenericService;
+    private readonly IGenericService<Hospital, int> _hospitalrGenericService;
 
-    public SearchService(IGenericService<Doctor> doctorGenericService, IGenericService<Hospital> hospitalrGenericService)
+    public SearchService(IGenericService<Doctor, int> doctorGenericService, IGenericService<Hospital, int> hospitalrGenericService)
     {
         _doctorGenericService = doctorGenericService;
         _hospitalrGenericService = hospitalrGenericService;

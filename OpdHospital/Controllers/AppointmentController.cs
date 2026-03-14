@@ -12,7 +12,7 @@ namespace OpdHospital.Controllers
         private readonly IAppointmentService _appointmentService;
 
         public AppointmentController(
-            IGenericService<Appointment> genericService,
+            IGenericService<Appointment, long> genericService,
             IAppointmentService appointmentService
         ) : base(genericService)
         {

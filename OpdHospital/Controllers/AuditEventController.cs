@@ -9,9 +9,8 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class AuditEventController : GenericController<AuditEvent, long>
     {
-        public AuditEventController(IGenericService<AuditEvent> genericService, IJwtHelper jwtHelper) : base(genericService)
+        public AuditEventController(IGenericService<AuditEvent, long> genericService, IJwtHelper jwtHelper) : base(genericService)
         {
-            
         }
     }
 }

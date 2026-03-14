@@ -15,6 +15,7 @@ namespace OpdHospital.Utilities
     {
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ILogger<JwtHelper> _logger;
 
         public JwtHelper()
         {
@@ -22,10 +23,12 @@ namespace OpdHospital.Utilities
 
         public JwtHelper(
             IConfiguration configuration,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            ILogger<JwtHelper> logger)
         {
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
         }
 
         // ===================== GENERATE JWT =====================
@@ -63,15 +66,34 @@ namespace OpdHospital.Utilities
         {
             var httpContext = _httpContextAccessor.HttpContext;
 
-            if (httpContext == null || httpContext.User.Identity?.IsAuthenticated != true)
+            if (httpContext == null)
+            {
+                _logger?.LogWarning("HttpContext is null in GetUserId");
                 return 0;
+            }
+
+            if (httpContext.User.Identity?.IsAuthenticated != true)
+            {
+                _logger?.LogWarning("User is not authenticated in GetUserId");
+                return 0;
+            }
 
             var userIdClaim = httpContext.User.Claims
                 .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
 
-            return userIdClaim != null && int.TryParse(userIdClaim.Value, out var userId)
-                ? userId
-                : 0;
+            if (userIdClaim == null)
+            {
+                _logger?.LogWarning("NameIdentifier claim not found in GetUserId");
+                return 0;
+            }
+
+            if (!long.TryParse(userIdClaim.Value, out var userId))
+            {
+                _logger?.LogWarning("Failed to parse userId claim value: {Value}", userIdClaim.Value);
+                return 0;
+            }
+
+            return userId;
         }
     }
 }

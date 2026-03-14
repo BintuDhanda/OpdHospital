@@ -11,7 +11,7 @@ namespace OpdHospital.Controllers
     public class NotificationController : GenericController<Notification, long>
     {
         private readonly INotificationService _notificationService;
-        public NotificationController(IGenericService<Notification> service, INotificationService notificationService) : base(service)
+        public NotificationController(IGenericService<Notification, long> service, INotificationService notificationService) : base(service)
         {
             _notificationService = notificationService;
         }

@@ -13,7 +13,7 @@ namespace OpdHospital.Controllers
         private readonly IPatientService _patientService;
 
         public PatientController(
-            IGenericService<Patient> genericService,
+            IGenericService<Patient, int> genericService,
             IPatientService patientService) : base(genericService)
         {
             _patientService = patientService;

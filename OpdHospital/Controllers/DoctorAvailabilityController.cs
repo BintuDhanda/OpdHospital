@@ -9,7 +9,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class DoctorAvailabilityController : GenericController<DoctorAvailability, long>
     {
-        public DoctorAvailabilityController(IGenericService<DoctorAvailability> genericService) : base(genericService)
+        public DoctorAvailabilityController(IGenericService<DoctorAvailability, long> genericService) : base(genericService)
         {
         }
     }

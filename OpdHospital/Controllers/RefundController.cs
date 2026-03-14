@@ -9,7 +9,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class RefundController : GenericController<Refunds, long>
     {
-        public RefundController(IGenericService<Refunds> genericService) : base(genericService)
+        public RefundController(IGenericService<Refunds, long> genericService) : base(genericService)
         {
         }
     }
