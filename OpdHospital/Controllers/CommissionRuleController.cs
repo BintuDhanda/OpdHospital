@@ -9,7 +9,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class CommissionRuleController : GenericController<CommissionRule, int>
     {
-        public CommissionRuleController(IGenericService<CommissionRule> genericService) : base(genericService)
+        public CommissionRuleController(IGenericService<CommissionRule, int> genericService) : base(genericService)
         {
         }
     }

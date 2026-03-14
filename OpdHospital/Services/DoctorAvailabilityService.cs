@@ -3,11 +3,11 @@ using OpdHospital.Models;
 
 namespace OpdHospital.Services
 {
-    public class DoctorAvailabilityService : GenericService<DoctorAvailability>
+    public class DoctorAvailabilityService : GenericService<DoctorAvailability, long>
     {
-        private readonly IGenericRepository<DoctorAvailability> _repository;
+        private readonly IGenericRepository<DoctorAvailability, long> _repository;
 
-        public DoctorAvailabilityService(IGenericRepository<DoctorAvailability> repository):base(repository)
+        public DoctorAvailabilityService(IGenericRepository<DoctorAvailability, long> repository):base(repository)
         {
             _repository = repository;
         }

@@ -9,10 +9,10 @@ namespace OpdHospital.Services
     {
         Task<ApiResponse?> GetPatientBookByUserId(long userId);
     }
-    public class PatientService : GenericService<Patient>, IPatientService
+    public class PatientService : GenericService<Patient, int>, IPatientService
     {
-        private readonly IGenericRepository<Patient> _repository;
-        public PatientService(IGenericRepository<Patient> repository)
+        private readonly IGenericRepository<Patient, int> _repository;
+        public PatientService(IGenericRepository<Patient, int> repository)
             : base(repository)
         {
             _repository = repository;

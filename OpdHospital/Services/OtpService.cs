@@ -4,9 +4,9 @@ using OpdHospital.Models;
 
 namespace OpdHospital.Services;
 
-public class OTPService : GenericService<OtpRequest>
+public class OTPService : GenericService<OtpRequest, long>
 {
-    public OTPService(IGenericRepository<OtpRequest> genericRepository) : base(genericRepository)
+    public OTPService(IGenericRepository<OtpRequest, long> genericRepository) : base(genericRepository)
     {
         
     }

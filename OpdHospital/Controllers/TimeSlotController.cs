@@ -9,7 +9,7 @@ namespace OpdHospital.Controllers
     [ApiController]
     public class TimeSlotController : GenericController<TimeSlot, long>
     {
-        public TimeSlotController(IGenericService<TimeSlot> genericService) : base(genericService)
+        public TimeSlotController(IGenericService<TimeSlot, long> genericService) : base(genericService)
         {
         }
     }

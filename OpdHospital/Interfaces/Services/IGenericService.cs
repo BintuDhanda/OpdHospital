@@ -1,9 +1,8 @@
-﻿using System.Linq;
-using OpdHospital.Models;
+﻿using OpdHospital.Models;
 
 namespace OpdHospital.Interfaces
 {
-    public interface IGenericService<T, TKey> where T : IEntity<TKey>
+    public interface IGenericService<T, TKey> where T : class , IEntity<TKey>
     {
         IQueryable<T> GetAll();
         Task<T?> GetByIdAsync(TKey id);
@@ -12,3 +11,4 @@ namespace OpdHospital.Interfaces
         Task<bool> DeleteAsync(TKey id);
     }
 }
+

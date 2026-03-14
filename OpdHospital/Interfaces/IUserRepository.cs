@@ -2,7 +2,7 @@
 
 namespace OpdHospital.Interfaces
 {
-    public interface IUserRepository : IGenericRepository<User>
+    public interface IUserRepository : IGenericRepository<User, long>
     {
         Task<User> GetByEmailAsync(string email);
     }

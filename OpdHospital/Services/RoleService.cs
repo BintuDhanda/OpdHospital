@@ -3,10 +3,10 @@ using OpdHospital.Models;
 
 namespace OpdHospital.Services
 {
-    public class RoleService:GenericService<Role>
+    public class RoleService:GenericService<Role, int>
     {
-        private readonly IGenericRepository<Role> _repository;
-        public RoleService(IGenericRepository<Role> repository):base(repository)
+        private readonly IGenericRepository<Role, int> _repository;
+        public RoleService(IGenericRepository<Role, int> repository):base(repository)
         {
             _repository = repository;
         }

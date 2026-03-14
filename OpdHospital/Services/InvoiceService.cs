@@ -3,10 +3,10 @@ using OpdHospital.Models;
 
 namespace OpdHospital.Services
 {
-    public class InvoiceService : GenericService<Invoice>
+    public class InvoiceService : GenericService<Invoice, int>
     {
-        private readonly IGenericRepository<Invoice> _repository;
-        public InvoiceService(IGenericRepository<Invoice> repository):base(repository)
+        private readonly IGenericRepository<Invoice, int> _repository;
+        public InvoiceService(IGenericRepository<Invoice, int> repository):base(repository)
         {
             _repository = repository;
         }

@@ -5,7 +5,7 @@ using OpdHospital.Models;
 
 namespace OpdHospital.Repositories
 {
-    public class UserRepository : GenericRepository<User>, IUserRepository
+    public class UserRepository : GenericRepository<User, long>, IUserRepository
     {
         public readonly AppDbContext _appDbContext;
 

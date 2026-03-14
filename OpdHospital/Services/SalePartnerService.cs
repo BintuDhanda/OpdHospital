@@ -3,11 +3,11 @@ using OpdHospital.Models;
 
 namespace OpdHospital.Services
 {
-    public class SalePartnerService : GenericService<SalePartner>
+    public class SalePartnerService : GenericService<SalePartner, int>
     {
-        private readonly IGenericRepository<SalePartner> _repository;
+        private readonly IGenericRepository<SalePartner, int> _repository;
 
-        public SalePartnerService(IGenericRepository<SalePartner> repository):base(repository) 
+        public SalePartnerService(IGenericRepository<SalePartner, int> repository):base(repository) 
         {
             _repository = repository;
         }

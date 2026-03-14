@@ -3,11 +3,11 @@ using OpdHospital.Models;
 
 namespace OpdHospital.Services
 {
-    public class PincodeService : GenericService<Pincode>
+    public class PincodeService : GenericService<Pincode, long>
     {
-        private readonly IGenericRepository<Pincode> _repository;
+        private readonly IGenericRepository<Pincode, long> _repository;
 
-        public PincodeService(IGenericRepository<Pincode> repository) : base(repository)
+        public PincodeService(IGenericRepository<Pincode, long> repository) : base(repository)
         {
             _repository = repository;
         }
