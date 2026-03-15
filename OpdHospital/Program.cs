@@ -5,7 +5,6 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OpdHospital.Database;
-using OpdHospital.Dtos;
 using OpdHospital.Interfaces;
 using OpdHospital.Models;
 using OpdHospital.Repositories;
