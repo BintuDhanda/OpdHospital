@@ -152,7 +152,7 @@ namespace OpdHospital.Services
                 case "hospital":
                     var resultHospital = await _hospitalService.AddAsync(new Hospital
                     {
-                        UserId = savedUser.Id,
+                        OnboardedByUserId = savedUser.Id,
                         HospitalName = "NEW_ADDED",
                     });
                     hospitalId = resultHospital.Id;
